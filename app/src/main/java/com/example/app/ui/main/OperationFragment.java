@@ -1,9 +1,12 @@
 package com.example.app.ui.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -11,17 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app.PatientsActivity;
 import com.example.app.R;
+import com.example.app.adapters.PatientsRecyclerViewAdapter;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+import java.util.LinkedList;
+import java.util.List;
+
+
 public class OperationFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+
 
     public static OperationFragment newInstance(int index) {
         OperationFragment fragment = new OperationFragment();
@@ -48,7 +57,18 @@ public class OperationFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_operation, container, false);
         //final TextView textView = root.findViewById(R.id.section_label);
+        setButtonOnClickListener((Button) root.findViewById(R.id.button_patient), new PatientsActivity());
 
         return root;
     }
+    private void setButtonOnClickListener(Button button, final Activity activity) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),activity.getClass());
+                view.getContext().startActivity(intent);
+            }
+        });
+    }
+
 }
