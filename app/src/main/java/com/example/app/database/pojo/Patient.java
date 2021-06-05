@@ -1,12 +1,14 @@
 package com.example.app.database.pojo;
 
 public class Patient {
+    private int ID;
     private String firstName;
     private String lastName;
     private int age;
     private String city;
 
-    public Patient(String firstName, String lastName, int age, String city){
+    public Patient(int ID, String firstName, String lastName, int age, String city){
+        this.ID = ID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -47,6 +49,14 @@ public class Patient {
 
     @Override
     public String toString(){
-        return firstName + " " + lastName + " " + age + " " + city;
+        return ID + " " + firstName + " " + lastName + " " + age + " " + city;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

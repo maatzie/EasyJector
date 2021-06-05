@@ -6,4 +6,7 @@
     <string name="button_text_patient">Select Patient</string>
     <string name="button_text_bottle">Select Bottle</string>
     <string name="textView_alert">Choose all parameters to Start injection.</string>
+    <string name="button_select">Select</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_delete">Delete</string>
 </resources>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 
 import com.example.app.R;
+import com.example.app.database.pojo.Patient;
 
 import java.util.List;
 
@@ -26,11 +27,11 @@ import java.util.List;
  */
 public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<String> mValues;
+    private final List<Patient> mValues;
     private FragmentManager fragmentManager;
     //private Activity activity;
 
-    public PatientsRecyclerViewAdapter(List<String> items, FragmentManager fragmentManager, Activity activity) {
+    public PatientsRecyclerViewAdapter(List<Patient> items, FragmentManager fragmentManager, Activity activity) {
         mValues = items;
         this.fragmentManager = fragmentManager;
         //this.activity = activity;
@@ -46,7 +47,10 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-
+        holder.mContentViewName.setText(holder.mItem.getFirstName());
+        holder.mContentViewSurname.setText(holder.mItem.getLastName());
+        holder.mContentViewAge.setText(Integer.toString(holder.mItem.getAge()));
+        holder.mContentViewCity.setText(holder.mItem.getCity());
 //        holder.mContentView.setOnClickListener(new View.OnClickListener(){
 //
 //            @Override
@@ -67,20 +71,26 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mContentView;
-        public String mItem;
+        public final TextView mContentViewName;
+        public final TextView mContentViewSurname;
+        public final TextView mContentViewAge;
+        public final TextView mContentViewCity;
+        public Patient mItem;
 
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentViewName = (TextView) view.findViewById(R.id.textView_name);
+            mContentViewSurname = (TextView) view.findViewById(R.id.textView_surname);
+            mContentViewAge = (TextView) view.findViewById(R.id.textView_age);
+            mContentViewCity = (TextView) view.findViewById(R.id.textView_city);
         }
 
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mContentViewSurname.getText() + "'";
         }
 
     }
