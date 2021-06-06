@@ -10,39 +10,37 @@
         android:layout_weight="1"
         android:background="@color/colorListBackground"
         android:orientation="horizontal"
-        android:padding="@dimen/listElement_padding">
+        android:paddingTop="@dimen/listElement_padding"
+        android:paddingBottom="@dimen/listElement_padding">
 
         <TextView
             android:id="@+id/textView_name"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Veranika" />
+            android:layout_weight="@dimen/weight_patients_col1"
+            android:text="fdgh" />
 
         <TextView
             android:id="@+id/textView_surname"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Yakouchyts" />
+            android:layout_weight="@dimen/weight_patients_col2" />
 
         <TextView
             android:id="@+id/textView_age"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:text="22" />
+            android:layout_weight="@dimen/weight_patients_col3" />
 
         <TextView
             android:id="@+id/textView_city"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.05"
-            android:text="Brest" />
+            android:layout_weight="@dimen/weight_patients_col4" />
     </LinearLayout>
 
     <LinearLayout

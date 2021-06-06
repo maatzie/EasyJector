@@ -34,14 +34,57 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/list_padding"
+            android:paddingRight="@dimen/list_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorHeaderBackground"
+                android:orientation="horizontal"
+
+                android:paddingTop="@dimen/listElement_padding"
+                android:paddingBottom="@dimen/listElement_padding">
+
+                <TextView
+                    android:id="@+id/textView_header_name"
+                    style="@style/HeaderTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@dimen/weight_patients_col1"
+                    android:text="@string/header_name" />
+
+                <TextView
+                    android:id="@+id/textView_header_surname"
+                    style="@style/HeaderTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@dimen/weight_patients_col2"
+                    android:text="@string/header_surname" />
+
+                <TextView
+                    android:id="@+id/textView_header_age"
+                    style="@style/HeaderTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@dimen/weight_patients_col3"
+                    android:text="@string/header_age" />
+
+                <TextView
+                    android:id="@+id/textView_header_city"
+                    style="@style/HeaderTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@dimen/weight_patients_col4"
+                    android:text="@string/header_city" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_patients"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/list_padding"
-                android:paddingRight="@dimen/list_padding">
+                android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
 

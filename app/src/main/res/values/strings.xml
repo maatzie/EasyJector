@@ -15,4 +15,8 @@
     <string name="input_age">Age</string>
     <string name="input_city">City</string>
     <string name="button_addUser">Add User</string>
+    <string name="header_name">First Name</string>
+    <string name="header_surname">Last Name</string>
+    <string name="header_age">Age</string>
+    <string name="header_city">City</string>
 </resources>

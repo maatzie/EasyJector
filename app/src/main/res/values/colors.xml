@@ -5,4 +5,5 @@
     <color name="colorAccent">#189de4</color>
     <color name="colorListBackground">#bcd9ea</color>
     <color name="colorInputBackground">#bcd9ea</color>
+    <color name="colorHeaderBackground">#026aa7</color>
 </resources>
