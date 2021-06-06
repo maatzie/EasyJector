@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.app.PatientsActivity;
@@ -61,12 +64,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
                 Log.i("CLICK", "SELECT");
             }
         });
-        holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Log.i("CLICK", "EDIT");
-            }
-        });
+
         holder.mButtonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -74,6 +72,32 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
                 patientTableHandler.deletePatient(mValues.get(position).getID());
                 patientTableHandler.getPatients();
                 activity.initRecyclerView(patientTableHandler.getPatients());
+                Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // set First Name to input
+                EditText editText_Name = (EditText) activity.findViewById(R.id.editTextT_Name);
+                editText_Name.setText(mValues.get(position).getFirstName());
+                // set Last Name to input
+                EditText editText_Surname = (EditText) activity.findViewById(R.id.editText_Surname);
+                editText_Surname.setText(mValues.get(position).getLastName());
+                // set Age to input
+                EditText editText_Age = (EditText) activity.findViewById(R.id.editText_Age);
+                editText_Age.setText(Integer.toString(mValues.get(position).getAge()));
+                // set City to input
+                EditText editText_City = (EditText) activity.findViewById(R.id.editText_City);
+                editText_City.setText(mValues.get(position).getCity());
+
+                // scroll to the bottom of views
+                ScrollView scrollView = (ScrollView) activity.findViewById(R.id.scrollView_Patients);
+                scrollView.scrollTo(0, scrollView.getBottom());
+
+                // set to edit mode
+                activity.editPatientID = mValues.get(position).getID();
             }
         });
 

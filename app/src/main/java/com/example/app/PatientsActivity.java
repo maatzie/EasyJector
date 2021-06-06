@@ -21,12 +21,15 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.provider.BaseColumns;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.app.ui.main.SectionsPagerAdapter;
 
@@ -39,6 +42,7 @@ public class PatientsActivity extends AppCompatActivity {
     private RecyclerView patientsRecyclerView;
     private List<Patient> patients;
     private PatientTableHandler patientTableHandler;
+    public Integer editPatientID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,13 @@ public class PatientsActivity extends AppCompatActivity {
         //patientTableHandler.addTestData();
         //patientTableHandler.updatePatient(6, "Veranika", "Yakouchyts", 22, "Brest");
         //patientTableHandler.deletePatient(5);
+
+        EditText editText_City = (EditText) findViewById(R.id.editText_City);
+
+        //editText_City.setInputType(InputType.TYPE_NULL);
         List<Patient> patients = patientTableHandler.getPatients();
         initRecyclerView(patients);
-        initButtonClick();
+        initAddButtonClick();
     }
 
     public void initRecyclerView(List<Patient> patients){
@@ -66,7 +74,7 @@ public class PatientsActivity extends AppCompatActivity {
 
     }
 
-    private void initButtonClick(){
+    private void initAddButtonClick(){
         Button button = (Button) findViewById(R.id.button_addUser);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -106,7 +114,16 @@ public class PatientsActivity extends AppCompatActivity {
                 }
 
                 if(!isError){
-                    patientTableHandler.addPatient(name, surname, Integer.parseInt(ageText), city);
+                    if(editPatientID == null){
+                        patientTableHandler.addPatient(name, surname, Integer.parseInt(ageText), city);
+                        Toast.makeText(getApplicationContext(),"Patient has been added!", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        patientTableHandler.updatePatient(editPatientID, name, surname, Integer.parseInt(ageText), city);
+                        editPatientID = null;
+                        Toast.makeText(getApplicationContext(),"Patient has been edited!", Toast.LENGTH_SHORT).show();
+                    }
                     // refresh patients list
                     initRecyclerView(patientTableHandler.getPatients());
                     // clear all inputs
@@ -114,6 +131,16 @@ public class PatientsActivity extends AppCompatActivity {
                     editText_Surname.getText().clear();
                     editText_Age.getText().clear();
                     editText_City.getText().clear();
+
+                    //editText_City.clearFocus();
+
+                    // Check if no view has focus:
+//                    View currentFocusView = getCurrentFocus();
+//                    if (currentFocusView != null) {
+//                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//                        imm.hideSoftInputFromWindow(currentFocusView.getWindowToken(), 0);
+//                    }
+
                 }
             }
         });

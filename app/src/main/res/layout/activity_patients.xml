@@ -26,6 +26,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
+        android:id="@+id/scrollView_Patients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -61,22 +62,22 @@
                     android:id="@+id/editTextT_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:hint="@string/input_name"
                     android:inputType="textPersonName"
-                    android:layout_margin="@dimen/input_margin"
                     android:padding="@dimen/input_padding" />
 
                 <EditText
                     android:id="@+id/editText_Surname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:hint="@string/input_surname"
                     android:inputType="textPersonName"
-                    android:layout_margin="@dimen/input_margin"
                     android:padding="@dimen/input_padding" />
 
                 <EditText
