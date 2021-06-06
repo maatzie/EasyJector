@@ -9,4 +9,7 @@
     <dimen name="operationButtons_horizontal_margin">18dp</dimen>
     <dimen name="listElement_padding">10dp</dimen>
     <dimen name="list_padding">10dp</dimen>
+    <dimen name="input_corner_radius">10dp</dimen>
+    <dimen name="input_padding">10dp</dimen>
+    <dimen name="input_margin">10dp</dimen>
 </resources>

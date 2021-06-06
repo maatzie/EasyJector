@@ -91,6 +91,24 @@ public class PatientTableHandler {
         return deletedRows;
     }
 
+    public int addPatient(String name, String surname, int age, String city){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+        values.put(Contract.FeedPatient.COLUMN_NAME_FIRST_NAME, name);
+        values.put(Contract.FeedPatient.COLUMN_NAME_LAST_NAME, surname);
+        values.put(Contract.FeedPatient.COLUMN_NAME_AGE, age);
+        values.put(Contract.FeedPatient.COLUMN_NAME_CITY, city);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(Contract.FeedPatient.TABLE_NAME, null, values);
+
+        if(newRowId > -1)
+            return 0;
+        return -1;
+    }
     public void addTestData(){
         DbHelper dbHelper = new DbHelper(context);
         // Gets the data repository in write mode
