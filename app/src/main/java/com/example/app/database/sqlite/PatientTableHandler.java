@@ -12,6 +12,9 @@ import com.example.app.database.pojo.Patient;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * All methods return 1 if success, 0 if an error occurred
+ */
 public class PatientTableHandler {
     Context context;
     public PatientTableHandler(Context context){
@@ -106,8 +109,8 @@ public class PatientTableHandler {
         long newRowId = db.insert(Contract.FeedPatient.TABLE_NAME, null, values);
 
         if(newRowId > -1)
-            return 0;
-        return -1;
+            return 1;
+        return 0;
     }
     public void addTestData(){
         DbHelper dbHelper = new DbHelper(context);

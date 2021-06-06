@@ -18,8 +18,7 @@
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="@dimen/weight_patients_col1"
-            android:text="fdgh" />
+            android:layout_weight="@dimen/weight_patients_col1" />
 
         <TextView
             android:id="@+id/textView_surname"

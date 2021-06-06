@@ -59,9 +59,14 @@ public class PatientsActivity extends AppCompatActivity {
         EditText editText_City = (EditText) findViewById(R.id.editText_City);
 
         //editText_City.setInputType(InputType.TYPE_NULL);
+
+        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+        cancelButton.setVisibility(View.GONE);
+
         List<Patient> patients = patientTableHandler.getPatients();
         initRecyclerView(patients);
         initAddButtonClick();
+        initCancelButtonClick();
     }
 
     public void initRecyclerView(List<Patient> patients){
@@ -115,14 +120,22 @@ public class PatientsActivity extends AppCompatActivity {
 
                 if(!isError){
                     if(editPatientID == null){
-                        patientTableHandler.addPatient(name, surname, Integer.parseInt(ageText), city);
-                        Toast.makeText(getApplicationContext(),"Patient has been added!", Toast.LENGTH_SHORT).show();
+                        int exit = patientTableHandler.addPatient(name, surname, Integer.parseInt(ageText), city);
+                        if(exit == 1) //success
+                            Toast.makeText(getApplicationContext(),"Patient has been added!", Toast.LENGTH_SHORT).show();
+                        else if(exit == 0) //error
+                            Toast.makeText(getApplicationContext(),"Error occurred while adding a patient!", Toast.LENGTH_SHORT).show();
 
                     }
                     else{
-                        patientTableHandler.updatePatient(editPatientID, name, surname, Integer.parseInt(ageText), city);
+                        int exit = patientTableHandler.updatePatient(editPatientID, name, surname, Integer.parseInt(ageText), city);
                         editPatientID = null;
-                        Toast.makeText(getApplicationContext(),"Patient has been edited!", Toast.LENGTH_SHORT).show();
+                        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+                        cancelButton.setVisibility(View.GONE);
+                        if(exit == 1) //success
+                            Toast.makeText(getApplicationContext(),"Patient has been edited!", Toast.LENGTH_SHORT).show();
+                        else if(exit == 0) //error
+                            Toast.makeText(getApplicationContext(),"Error occurred while editing a patient!", Toast.LENGTH_SHORT).show();
                     }
                     // refresh patients list
                     initRecyclerView(patientTableHandler.getPatients());
@@ -146,4 +159,28 @@ public class PatientsActivity extends AppCompatActivity {
         });
     }
 
+    public void initCancelButtonClick() {
+        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editText_Name = (EditText) findViewById(R.id.editTextT_Name);
+                EditText editText_Surname = (EditText) findViewById(R.id.editText_Surname);
+                EditText editText_Age = (EditText) findViewById(R.id.editText_Age);
+                EditText editText_City = (EditText) findViewById(R.id.editText_City);
+
+                // clear all inputs
+                editText_Name.getText().clear();
+                editText_Surname.getText().clear();
+                editText_Age.getText().clear();
+                editText_City.getText().clear();
+
+                editPatientID = null;
+
+                Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+                cancelButton.setVisibility(View.GONE);
+
+            }
+        });
+    }
 }

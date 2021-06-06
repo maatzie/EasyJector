@@ -19,4 +19,5 @@
     <string name="header_surname">Last Name</string>
     <string name="header_age">Age</string>
     <string name="header_city">City</string>
+    <string name="cancel">Cancel</string>
 </resources>

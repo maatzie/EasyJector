@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,10 +71,14 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
             @Override
             public void onClick(View view) {
                 PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
-                patientTableHandler.deletePatient(mValues.get(position).getID());
+                int exit = patientTableHandler.deletePatient(mValues.get(position).getID());
                 patientTableHandler.getPatients();
                 activity.initRecyclerView(patientTableHandler.getPatients());
-                Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
+
+                if(exit == 1) //success
+                    Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
+                else if(exit == 0) //error
+                    Toast.makeText(activity.getApplicationContext(),"Error occurred while deleting a patient!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -95,10 +100,13 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
 
                 // scroll to the bottom of views
                 NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Patients);
-                scrollView.scrollTo(0, scrollView.getBottom());
+                //scrollView.smoothScrollTo(0, scrollView.getBottom());
+                scrollView.fullScroll(View.FOCUS_DOWN);
 
                 // set to edit mode
                 activity.editPatientID = mValues.get(position).getID();
+                Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditing);
+                cancelButton.setVisibility(View.VISIBLE);
             }
         });
 
