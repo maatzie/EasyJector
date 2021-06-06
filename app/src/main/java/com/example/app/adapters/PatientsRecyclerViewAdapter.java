@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.app.MainActivity;
 import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.database.pojo.Patient;
@@ -63,7 +64,14 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mButtonSelect.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.i("CLICK", "SELECT");
+                Patient selectedPatient = mValues.get(position);
+                PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
+                patientTableHandler.setSelectedPatient(selectedPatient);
+
+                //activity.finish();
+                Intent intent = new Intent(view.getContext(), new MainActivity().getClass());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                view.getContext().startActivity(intent);
             }
         });
 

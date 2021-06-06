@@ -49,7 +49,7 @@ public class Patient {
 
     @Override
     public String toString(){
-        return ID + " " + firstName + " " + lastName + " " + age + " " + city;
+        return firstName + " " + lastName;
     }
 
     public int getID() {

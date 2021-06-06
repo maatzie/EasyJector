@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class PatientTableHandler {
     Context context;
+    private static Patient selectedPatient;
     public PatientTableHandler(Context context){
         this.context = context;
     }
@@ -131,5 +132,13 @@ public class PatientTableHandler {
             Log.i("ID", Long.toString(newRowId));
         }
 
+    }
+
+    public Patient getSelectedPatient() {
+        return selectedPatient;
+    }
+
+    public void setSelectedPatient(Patient selectedPatient) {
+        this.selectedPatient = selectedPatient;
     }
 }

@@ -3,6 +3,7 @@ package com.example.app.ui.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.adapters.PatientsRecyclerViewAdapter;
+import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +51,8 @@ public class OperationFragment extends Fragment {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         pageViewModel.setIndex(index);
+
+
     }
 
     @Override
@@ -56,8 +60,14 @@ public class OperationFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_operation, container, false);
-        //final TextView textView = root.findViewById(R.id.section_label);
+
         setButtonOnClickListener((Button) root.findViewById(R.id.button_patient), new PatientsActivity());
+
+        PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
+        if(patientTableHandler.getSelectedPatient() != null){
+            Button patientButton = (Button) root.findViewById(R.id.button_patient);
+            patientButton.setText(patientTableHandler.getSelectedPatient().toString());
+        }
 
         return root;
     }
