@@ -69,7 +69,7 @@ public class PatientsActivity extends AppCompatActivity {
         patientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         PatientsRecyclerViewAdapter adapter = new PatientsRecyclerViewAdapter(patients, getSupportFragmentManager(), this);
         patientsRecyclerView.setAdapter(adapter);
-        //patientsRecyclerView.setNestedScrollingEnabled(false);
+        patientsRecyclerView.setNestedScrollingEnabled(false);
         //patientsRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
 
     }

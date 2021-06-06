@@ -1,6 +1,7 @@
 package com.example.app.adapters;
 
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +94,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
                 editText_City.setText(mValues.get(position).getCity());
 
                 // scroll to the bottom of views
-                ScrollView scrollView = (ScrollView) activity.findViewById(R.id.scrollView_Patients);
+                NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Patients);
                 scrollView.scrollTo(0, scrollView.getBottom());
 
                 // set to edit mode
