@@ -68,7 +68,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
                 PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
                 patientTableHandler.setSelectedPatient(selectedPatient);
 
-                //activity.finish();
+                // open main view
                 Intent intent = new Intent(view.getContext(), new MainActivity().getClass());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 view.getContext().startActivity(intent);
