@@ -1,39 +1,20 @@
 package com.example.app;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.app.adapters.PatientsRecyclerViewAdapter;
 import com.example.app.database.pojo.Patient;
-import com.example.app.database.sqlite.Contract;
-import com.example.app.database.sqlite.DbHelper;
 import com.example.app.database.sqlite.PatientTableHandler;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.BaseColumns;
-import android.text.InputType;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.app.ui.main.SectionsPagerAdapter;
-
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -60,7 +41,7 @@ public class PatientsActivity extends AppCompatActivity {
 
         //editText_City.setInputType(InputType.TYPE_NULL);
 
-        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+        Button cancelButton = (Button) findViewById(R.id.button_cancelEditingPatient);
         cancelButton.setVisibility(View.GONE);
 
         List<Patient> patients = patientTableHandler.getPatients();
@@ -130,7 +111,7 @@ public class PatientsActivity extends AppCompatActivity {
                     else{
                         int exit = patientTableHandler.updatePatient(editPatientID, name, surname, Integer.parseInt(ageText), city);
                         editPatientID = null;
-                        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+                        Button cancelButton = (Button) findViewById(R.id.button_cancelEditingPatient);
                         cancelButton.setVisibility(View.GONE);
                         if(exit == 1) //success
                             Toast.makeText(getApplicationContext(),"Patient has been edited!", Toast.LENGTH_SHORT).show();
@@ -160,7 +141,7 @@ public class PatientsActivity extends AppCompatActivity {
     }
 
     public void initCancelButtonClick() {
-        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+        Button cancelButton = (Button) findViewById(R.id.button_cancelEditingPatient);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,7 +158,7 @@ public class PatientsActivity extends AppCompatActivity {
 
                 editPatientID = null;
 
-                Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
+                Button cancelButton = (Button) findViewById(R.id.button_cancelEditingPatient);
                 cancelButton.setVisibility(View.GONE);
 
             }

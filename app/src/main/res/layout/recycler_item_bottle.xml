@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/colorListBackground"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/listElement_padding"
+        android:paddingBottom="@dimen/listElement_padding">
+
+        <TextView
+            android:id="@+id/textView_bottleID"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@dimen/weight_bottles_col1" />
+
+        <TextView
+            android:id="@+id/textView_bottleName"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@dimen/weight_bottles_col2" />
+
+        <TextView
+            android:id="@+id/textView_bottleVolume"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@dimen/weight_bottles_col3" />
+
+        <TextView
+            android:id="@+id/textView_bottleQuantity"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@dimen/weight_bottles_col4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_select_bottle"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_select"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/button_edit_bottle"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_edit"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/button_delete_bottle"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_delete"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</LinearLayout>

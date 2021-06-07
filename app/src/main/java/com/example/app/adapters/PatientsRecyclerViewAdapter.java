@@ -2,23 +2,15 @@ package com.example.app.adapters;
 
 
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,7 +105,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
 
                 // set to edit mode
                 activity.editPatientID = mValues.get(position).getID();
-                Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditing);
+                Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditingPatient);
                 cancelButton.setVisibility(View.VISIBLE);
             }
         });

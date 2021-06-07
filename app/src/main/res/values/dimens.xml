@@ -16,4 +16,8 @@
     <dimen name="weight_patients_col2">1</dimen>
     <dimen name="weight_patients_col3">1.2</dimen>
     <dimen name="weight_patients_col4">1.05</dimen>
+    <dimen name="weight_bottles_col1">1</dimen>
+    <dimen name="weight_bottles_col2">1</dimen>
+    <dimen name="weight_bottles_col3">1.2</dimen>
+    <dimen name="weight_bottles_col4">1.05</dimen>
 </resources>

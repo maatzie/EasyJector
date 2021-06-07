@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView_Patients"
+        android:id="@+id/nestedScrollView_Bottles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
@@ -49,40 +50,40 @@
                 android:paddingBottom="@dimen/listElement_padding">
 
                 <TextView
-                    android:id="@+id/textView_header_name"
+                    android:id="@+id/textView_header_bottleID"
                     style="@style/HeaderTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="@dimen/weight_patients_col1"
-                    android:text="@string/header_name" />
+                    android:layout_weight="@dimen/weight_bottles_col1"
+                    android:text="@string/header_bottleID" />
 
                 <TextView
-                    android:id="@+id/textView_header_surname"
+                    android:id="@+id/textView_header_bottleName"
                     style="@style/HeaderTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="@dimen/weight_patients_col2"
-                    android:text="@string/header_surname" />
+                    android:layout_weight="@dimen/weight_bottles_col2"
+                    android:text="@string/header_bottleName" />
 
                 <TextView
-                    android:id="@+id/textView_header_age"
+                    android:id="@+id/textView_header_bottleVolume"
                     style="@style/HeaderTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="@dimen/weight_patients_col3"
-                    android:text="@string/header_age" />
+                    android:layout_weight="@dimen/weight_bottles_col3"
+                    android:text="@string/header_bottleVolume" />
 
                 <TextView
-                    android:id="@+id/textView_header_city"
+                    android:id="@+id/textView_header_bottleQuantity"
                     style="@style/HeaderTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="@dimen/weight_patients_col4"
-                    android:text="@string/header_city" />
+                    android:layout_weight="@dimen/weight_bottles_col4"
+                    android:text="@string/header_bottleQuantity" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_patients"
+                android:id="@+id/recyclerView_bottles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -95,55 +96,55 @@
                 android:padding="@dimen/list_padding">
 
                 <TextView
-                    android:id="@+id/textView_info"
+                    android:id="@+id/textView_info_bottles"
                     style="@style/Widget.AppCompat.TextView.SpinnerItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/input_margin"
-                    android:text="@string/textView_addUsers_info" />
+                    android:text="@string/textView_addBottles_info" />
 
                 <EditText
-                    android:id="@+id/editTextT_Name"
+                    android:id="@+id/editText_bottleID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/input_margin"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
-                    android:hint="@string/input_name"
-                    android:inputType="textPersonName"
-                    android:padding="@dimen/input_padding" />
-
-                <EditText
-                    android:id="@+id/editText_Surname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/input_margin"
-                    android:background="@drawable/rounded_edittext"
-                    android:ems="10"
-                    android:hint="@string/input_surname"
-                    android:inputType="textPersonName"
-                    android:padding="@dimen/input_padding" />
-
-                <EditText
-                    android:id="@+id/editText_Age"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/input_margin"
-                    android:background="@drawable/rounded_edittext"
-                    android:ems="10"
-                    android:hint="@string/input_age"
+                    android:hint="@string/input_bottleID"
                     android:inputType="number"
                     android:padding="@dimen/input_padding" />
 
                 <EditText
-                    android:id="@+id/editText_City"
+                    android:id="@+id/editText_bottleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/input_margin"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
-                    android:hint="@string/input_city"
-                    android:inputType="text"
+                    android:hint="@string/input_bottleName"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/input_padding" />
+
+                <EditText
+                    android:id="@+id/editText_bottleVolume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
+                    android:background="@drawable/rounded_edittext"
+                    android:ems="10"
+                    android:hint="@string/input_bottleVolume"
+                    android:inputType="number"
+                    android:padding="@dimen/input_padding" />
+
+                <EditText
+                    android:id="@+id/editText_BottleQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
+                    android:background="@drawable/rounded_edittext"
+                    android:ems="10"
+                    android:hint="@string/input_bottleQuantity"
+                    android:inputType="numberSigned"
                     android:padding="@dimen/input_padding" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,19 +152,19 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/button_addUser"
+                        android:id="@+id/button_addBottle"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginBottom="1dp"
-                        android:text="@string/button_addUser"
+                        android:text="@string/button_addBottle"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <Button
-                        android:id="@+id/button_cancelEditingPatient"
+                        android:id="@+id/button_cancelEditingBottle"
                         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,5 +184,4 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </LinearLayout>

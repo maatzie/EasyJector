@@ -10,14 +10,24 @@
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
     <string name="textView_addUsers_info">Add/Edit Users</string>
+    <string name="textView_addBottles_info">Add/Edit Bottles</string>
     <string name="input_name">First Name</string>
     <string name="input_surname">Last Name</string>
     <string name="input_age">Age</string>
     <string name="input_city">City</string>
+    <string name="input_bottleID">Bottle ID</string>
+    <string name="input_bottleName">Bottle Name</string>
+    <string name="input_bottleVolume">Volume</string>
+    <string name="input_bottleQuantity">Quantity</string>
     <string name="button_addUser">Add User</string>
+    <string name="button_addBottle">Add Bottle</string>
     <string name="header_name">First Name</string>
     <string name="header_surname">Last Name</string>
     <string name="header_age">Age</string>
     <string name="header_city">City</string>
+    <string name="header_bottleID">Bottle ID</string>
+    <string name="header_bottleName">Bottle Name</string>
+    <string name="header_bottleVolume">Volume</string>
+    <string name="header_bottleQuantity">Quantity</string>
     <string name="cancel">Cancel</string>
 </resources>

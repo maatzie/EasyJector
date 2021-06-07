@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app.BottlesActivity;
 import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.adapters.PatientsRecyclerViewAdapter;
@@ -62,6 +63,7 @@ public class OperationFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_operation, container, false);
 
         setButtonOnClickListener((Button) root.findViewById(R.id.button_patient), new PatientsActivity());
+        setButtonOnClickListener((Button) root.findViewById(R.id.button_bottle), new BottlesActivity());
 
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
