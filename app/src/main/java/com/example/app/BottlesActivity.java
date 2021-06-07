@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.database.pojo.Patient;
+import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class BottlesActivity extends AppCompatActivity {
 
 //    private RecyclerView patientsRecyclerView;
 //    private List<Patient> patients;
-//    private PatientTableHandler patientTableHandler;
+    private BottleTableHandler bottleTableHandler;
 //    public Integer editPatientID = null;
 
     @Override
@@ -25,7 +26,10 @@ public class BottlesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottles);
 
-        //patientTableHandler = new PatientTableHandler(getBaseContext());
+
+        bottleTableHandler = new BottleTableHandler(getBaseContext());
+        //bottleTableHandler.addTestData();
+        bottleTableHandler.getBottles();
 
 
 //        EditText editText_City = (EditText) findViewById(R.id.editText_City);

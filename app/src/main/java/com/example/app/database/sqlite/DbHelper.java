@@ -9,7 +9,7 @@ import static com.example.app.database.sqlite.Contract.SQL_DELETE_ENTRIES;
 
 public class DbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "Database.db";
 
     public DbHelper(Context context) {
