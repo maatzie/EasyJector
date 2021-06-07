@@ -55,7 +55,6 @@ public class BottleTableHandler {
                     cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedBottle.COLUMN_NAME_VOLUME)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedBottle.COLUMN_NAME_QUANTITY)));
             bottles.add(bottle);
-            Log.i(Integer.toString(bottle.getID()), bottle.toString());
         }
         cursor.close();
 

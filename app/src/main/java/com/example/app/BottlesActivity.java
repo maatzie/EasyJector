@@ -6,8 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app.adapters.BottlesRecyclerViewAdapter;
+import com.example.app.adapters.PatientsRecyclerViewAdapter;
+import com.example.app.database.pojo.Bottle;
 import com.example.app.database.pojo.Patient;
 import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
@@ -16,7 +20,7 @@ import java.util.List;
 
 public class BottlesActivity extends AppCompatActivity {
 
-//    private RecyclerView patientsRecyclerView;
+    private RecyclerView bottlesRecyclerView;
 //    private List<Patient> patients;
     private BottleTableHandler bottleTableHandler;
 //    public Integer editPatientID = null;
@@ -39,9 +43,19 @@ public class BottlesActivity extends AppCompatActivity {
 //        Button cancelButton = (Button) findViewById(R.id.button_cancelEditing);
 //        cancelButton.setVisibility(View.GONE);
 //
-//        List<Patient> patients = patientTableHandler.getPatients();
-//        initRecyclerView(patients);
+        List<Bottle> bottles = bottleTableHandler.getBottles();
+        initRecyclerView(bottles);
 //        initAddButtonClick();
 //        initCancelButtonClick();
+    }
+
+    public void initRecyclerView(List<Bottle> bottles){
+        bottlesRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_bottles);
+        bottlesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        BottlesRecyclerViewAdapter adapter = new BottlesRecyclerViewAdapter(bottles, getSupportFragmentManager(), this);
+        bottlesRecyclerView.setAdapter(adapter);
+        bottlesRecyclerView.setNestedScrollingEnabled(false);
+        //bottlesRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
+
     }
 }
