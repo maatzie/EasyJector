@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class BottleTableHandler {
     Context context;
-    private static Bottle selectedBottle;
+    public static Bottle selectedBottle;
     public BottleTableHandler(Context context){
         this.context = context;
     }

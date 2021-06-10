@@ -1,6 +1,7 @@
 package com.example.app.adapters;
 
 
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,13 +18,15 @@ import android.widget.Toast;
 
 import com.example.app.BottlesActivity;
 import com.example.app.MainActivity;
-import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.database.pojo.Bottle;
-import com.example.app.database.pojo.Patient;
+import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
+
+import static com.example.app.database.sqlite.BottleTableHandler.selectedBottle;
+
 
 /**
  * Class is user for displaying a list of resources. If resource is clicked, activity is changed to
@@ -55,62 +58,76 @@ public class BottlesRecyclerViewAdapter extends RecyclerView.Adapter<BottlesRecy
         holder.mContentViewName.setText(holder.mItem.getName());
         holder.mContentViewVolume.setText(Integer.toString(holder.mItem.getVolume()));
         holder.mContentViewQuantity.setText(Integer.toString(holder.mItem.getQuantity()));
-//        holder.mButtonSelect.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Patient selectedPatient = mValues.get(position);
-//                PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
-//                patientTableHandler.setSelectedPatient(selectedPatient);
-//
-//                // open main view
-//                Intent intent = new Intent(view.getContext(), new MainActivity().getClass());
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                view.getContext().startActivity(intent);
-//            }
-//        });
-//
-//        holder.mButtonDelete.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
-//                int exit = patientTableHandler.deletePatient(mValues.get(position).getID());
-//                patientTableHandler.getPatients();
-//                activity.initRecyclerView(patientTableHandler.getPatients());
-//
-//                if(exit == 1) //success
-//                    Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
-//                else if(exit == 0) //error
-//                    Toast.makeText(activity.getApplicationContext(),"Error occurred while deleting a patient!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                // set First Name to input
-//                EditText editText_Name = (EditText) activity.findViewById(R.id.editTextT_Name);
-//                editText_Name.setText(mValues.get(position).getFirstName());
-//                // set Last Name to input
-//                EditText editText_Surname = (EditText) activity.findViewById(R.id.editText_Surname);
-//                editText_Surname.setText(mValues.get(position).getLastName());
-//                // set Age to input
-//                EditText editText_Age = (EditText) activity.findViewById(R.id.editText_Age);
-//                editText_Age.setText(Integer.toString(mValues.get(position).getAge()));
-//                // set City to input
-//                EditText editText_City = (EditText) activity.findViewById(R.id.editText_City);
-//                editText_City.setText(mValues.get(position).getCity());
-//
-//                // scroll to the bottom of views
-//                NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Patients);
-//                //scrollView.smoothScrollTo(0, scrollView.getBottom());
-//                scrollView.fullScroll(View.FOCUS_DOWN);
-//
-//                // set to edit mode
-//                activity.editPatientID = mValues.get(position).getID();
-//                Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditingPatient);
-//                cancelButton.setVisibility(View.VISIBLE);
-//            }
-//        });
+        if(selectedBottle != null && holder.mItem.getID() == selectedBottle.getID()){
+            holder.mButtonSelect.setText(R.string.button_selected);
+            holder.mButtonSelect.setTextColor(ContextCompat.getColor(activity.getBaseContext(),
+                    R.color.colorButtonSelected));
+        }
+
+        holder.mButtonSelect.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                BottleTableHandler.selectedBottle = mValues.get(position);
+
+                // open main view
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
+        holder.mButtonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(selectedBottle != null && selectedBottle.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert_bottle, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    BottleTableHandler bottleTableHandler = new BottleTableHandler(activity.getBaseContext());
+                    int exit = bottleTableHandler.deleteBottle(mValues.get(position).getID());
+                    activity.initRecyclerView(bottleTableHandler.getBottles());
+
+                    if(exit == 1) //success
+                        Toast.makeText(activity.getApplicationContext(),"Bottle has been deleted!", Toast.LENGTH_SHORT).show();
+                    else if(exit == 0) //error
+                        Toast.makeText(activity.getApplicationContext(),"Error occurred while deleting a bottle!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(selectedBottle != null && selectedBottle.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert_bottle, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // set Bottle ID to input
+                    EditText editText_bottleID = (EditText) activity.findViewById(R.id.editText_bottleID);
+                    editText_bottleID.setText(mValues.get(position).getBottleID());
+                    // set Bottle Name to input
+                    EditText editText_bottleName = (EditText) activity.findViewById(R.id.editText_bottleName);
+                    editText_bottleName.setText(mValues.get(position).getName());
+                    // set Volume to input
+                    EditText editText_bottleVolume = (EditText) activity.findViewById(R.id.editText_bottleVolume);
+                    editText_bottleVolume.setText(Integer.toString(mValues.get(position).getVolume()));
+                    // set Quantity to input
+                    EditText editText_BottleQuantity = (EditText) activity.findViewById(R.id.editText_BottleQuantity);
+                    editText_BottleQuantity.setText(Integer.toString(mValues.get(position).getQuantity()));
+
+                    // scroll to the bottom of views
+                    NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Bottles);
+                    //scrollView.smoothScrollTo(0, scrollView.getBottom());
+                    scrollView.fullScroll(View.FOCUS_DOWN);
+
+                    // set to edit mode
+                    activity.editBottleID = mValues.get(position).getID();
+                    Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditingBottle);
+                    cancelButton.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 

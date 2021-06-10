@@ -6,10 +6,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +57,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mContentViewSurname.setText(holder.mItem.getLastName());
         holder.mContentViewAge.setText(Integer.toString(holder.mItem.getAge()));
         holder.mContentViewCity.setText(holder.mItem.getCity());
-        PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
+
         if(selectedPatient != null && holder.mItem.getID() == selectedPatient.getID()){
             holder.mButtonSelect.setText(R.string.button_selected);
             holder.mButtonSelect.setTextColor(ContextCompat.getColor(activity.getBaseContext(),
@@ -70,12 +67,10 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mButtonSelect.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Patient selectedPatient = mValues.get(position);
-                PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
-                patientTableHandler.setSelectedPatient(selectedPatient);
+                PatientTableHandler.selectedPatient = mValues.get(position);;
 
                 // open main view
-                Intent intent = new Intent(view.getContext(), new MainActivity().getClass());
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 view.getContext().startActivity(intent);
 
@@ -85,13 +80,12 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mButtonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(selectedPatient.getID() == mValues.get(position).getID()){
-                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert, Toast.LENGTH_SHORT).show();
+                if(selectedPatient != null && selectedPatient.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert_patient, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
                     int exit = patientTableHandler.deletePatient(mValues.get(position).getID());
-                    patientTableHandler.getPatients();
                     activity.initRecyclerView(patientTableHandler.getPatients());
 
                     if(exit == 1) //success
@@ -105,8 +99,8 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(selectedPatient.getID() == mValues.get(position).getID()){
-                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert, Toast.LENGTH_SHORT).show();
+                if(selectedPatient != null && selectedPatient.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert_patient, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // set First Name to input

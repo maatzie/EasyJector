@@ -4,6 +4,7 @@
     <string name="tab_text_2">History</string>
     <string name="button_text_connection">Connect</string>
     <string name="button_text_patient">Select Patient</string>
+    <string name="button_text_selected">\ | Change</string>
     <string name="button_text_bottle">Select Bottle</string>
     <string name="textView_alert">Choose all parameters to Start injection.</string>
     <string name="button_select">Select</string>
@@ -31,5 +32,7 @@
     <string name="header_bottleVolume">Volume</string>
     <string name="header_bottleQuantity">Quantity</string>
     <string name="cancel">Cancel</string>
-    <string name="edit_delete_alert">Error! You can\'t edit or delete a selected patient!</string>
+    <string name="edit_delete_alert_patient">Error! You can\'t edit or delete a selected patient!</string>
+    <string name="edit_delete_alert_bottle">Error! You can\'t edit or delete a selected bottle!</string>
+
 </resources>

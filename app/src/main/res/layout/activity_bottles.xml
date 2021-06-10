@@ -111,7 +111,7 @@
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:hint="@string/input_bottleID"
-                    android:inputType="number|text"
+                    android:inputType="number"
                     android:padding="@dimen/input_padding" />
 
                 <EditText

@@ -21,7 +21,6 @@ import java.util.List;
 public class PatientsActivity extends AppCompatActivity {
 
     private RecyclerView patientsRecyclerView;
-    private List<Patient> patients;
     private PatientTableHandler patientTableHandler;
     public Integer editPatientID = null;
 

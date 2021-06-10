@@ -1,5 +1,6 @@
 package com.example.app.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class OperationFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -68,7 +70,8 @@ public class OperationFragment extends Fragment {
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
             Button patientButton = (Button) root.findViewById(R.id.button_patient);
-            patientButton.setText(patientTableHandler.getSelectedPatient().toString());
+            String text = patientTableHandler.getSelectedPatient().toString() +  getString(R.string.button_text_selected);
+            patientButton.setText(text);
         }
 
         return root;
