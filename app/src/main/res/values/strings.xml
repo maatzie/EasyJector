@@ -7,6 +7,7 @@
     <string name="button_text_bottle">Select Bottle</string>
     <string name="textView_alert">Choose all parameters to Start injection.</string>
     <string name="button_select">Select</string>
+    <string name="button_selected">Selected</string>
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
     <string name="textView_addUsers_info">Add/Edit Users</string>
@@ -30,4 +31,5 @@
     <string name="header_bottleVolume">Volume</string>
     <string name="header_bottleQuantity">Quantity</string>
     <string name="cancel">Cancel</string>
+    <string name="edit_delete_alert">Error! You can\'t edit or delete a selected patient!</string>
 </resources>

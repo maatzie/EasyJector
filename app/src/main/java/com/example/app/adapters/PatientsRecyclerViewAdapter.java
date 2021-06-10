@@ -1,11 +1,15 @@
 package com.example.app.adapters;
 
 
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,8 @@ import com.example.app.database.pojo.Patient;
 import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
+
+import static com.example.app.database.sqlite.PatientTableHandler.selectedPatient;
 
 /**
  * Class is user for displaying a list of resources. If resource is clicked, activity is changed to
@@ -46,6 +52,7 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
@@ -53,6 +60,13 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
         holder.mContentViewSurname.setText(holder.mItem.getLastName());
         holder.mContentViewAge.setText(Integer.toString(holder.mItem.getAge()));
         holder.mContentViewCity.setText(holder.mItem.getCity());
+        PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
+        if(selectedPatient != null && holder.mItem.getID() == selectedPatient.getID()){
+            holder.mButtonSelect.setText(R.string.button_selected);
+            holder.mButtonSelect.setTextColor(ContextCompat.getColor(activity.getBaseContext(),
+                    R.color.colorButtonSelected));
+        }
+
         holder.mButtonSelect.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -64,49 +78,60 @@ public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRe
                 Intent intent = new Intent(view.getContext(), new MainActivity().getClass());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 view.getContext().startActivity(intent);
+
             }
         });
 
         holder.mButtonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
-                int exit = patientTableHandler.deletePatient(mValues.get(position).getID());
-                patientTableHandler.getPatients();
-                activity.initRecyclerView(patientTableHandler.getPatients());
+                if(selectedPatient.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    PatientTableHandler patientTableHandler = new PatientTableHandler(activity.getBaseContext());
+                    int exit = patientTableHandler.deletePatient(mValues.get(position).getID());
+                    patientTableHandler.getPatients();
+                    activity.initRecyclerView(patientTableHandler.getPatients());
 
-                if(exit == 1) //success
-                    Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
-                else if(exit == 0) //error
-                    Toast.makeText(activity.getApplicationContext(),"Error occurred while deleting a patient!", Toast.LENGTH_SHORT).show();
+                    if(exit == 1) //success
+                        Toast.makeText(activity.getApplicationContext(),"Patient has been deleted!", Toast.LENGTH_SHORT).show();
+                    else if(exit == 0) //error
+                        Toast.makeText(activity.getApplicationContext(),"Error occurred while deleting a patient!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         holder.mButtonEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // set First Name to input
-                EditText editText_Name = (EditText) activity.findViewById(R.id.editTextT_Name);
-                editText_Name.setText(mValues.get(position).getFirstName());
-                // set Last Name to input
-                EditText editText_Surname = (EditText) activity.findViewById(R.id.editText_Surname);
-                editText_Surname.setText(mValues.get(position).getLastName());
-                // set Age to input
-                EditText editText_Age = (EditText) activity.findViewById(R.id.editText_Age);
-                editText_Age.setText(Integer.toString(mValues.get(position).getAge()));
-                // set City to input
-                EditText editText_City = (EditText) activity.findViewById(R.id.editText_City);
-                editText_City.setText(mValues.get(position).getCity());
+                if(selectedPatient.getID() == mValues.get(position).getID()){
+                    Toast.makeText(activity.getApplicationContext(),R.string.edit_delete_alert, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // set First Name to input
+                    EditText editText_Name = (EditText) activity.findViewById(R.id.editTextT_Name);
+                    editText_Name.setText(mValues.get(position).getFirstName());
+                    // set Last Name to input
+                    EditText editText_Surname = (EditText) activity.findViewById(R.id.editText_Surname);
+                    editText_Surname.setText(mValues.get(position).getLastName());
+                    // set Age to input
+                    EditText editText_Age = (EditText) activity.findViewById(R.id.editText_Age);
+                    editText_Age.setText(Integer.toString(mValues.get(position).getAge()));
+                    // set City to input
+                    EditText editText_City = (EditText) activity.findViewById(R.id.editText_City);
+                    editText_City.setText(mValues.get(position).getCity());
 
-                // scroll to the bottom of views
-                NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Patients);
-                //scrollView.smoothScrollTo(0, scrollView.getBottom());
-                scrollView.fullScroll(View.FOCUS_DOWN);
+                    // scroll to the bottom of views
+                    NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Patients);
+                    //scrollView.smoothScrollTo(0, scrollView.getBottom());
+                    scrollView.fullScroll(View.FOCUS_DOWN);
 
-                // set to edit mode
-                activity.editPatientID = mValues.get(position).getID();
-                Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditingPatient);
-                cancelButton.setVisibility(View.VISIBLE);
+                    // set to edit mode
+                    activity.editPatientID = mValues.get(position).getID();
+                    Button cancelButton = (Button) activity.findViewById(R.id.button_cancelEditingPatient);
+                    cancelButton.setVisibility(View.VISIBLE);
+                }
             }
         });
 

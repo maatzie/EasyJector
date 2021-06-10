@@ -6,4 +6,5 @@
     <color name="colorListBackground">#bcd9ea</color>
     <color name="colorInputBackground">#bcd9ea</color>
     <color name="colorHeaderBackground">#026aa7</color>
+    <color name="colorButtonSelected">#74A182</color>
 </resources>

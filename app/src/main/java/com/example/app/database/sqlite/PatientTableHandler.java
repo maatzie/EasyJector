@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class PatientTableHandler {
     Context context;
-    private static Patient selectedPatient;
+    public static Patient selectedPatient;
     public PatientTableHandler(Context context){
         this.context = context;
     }
