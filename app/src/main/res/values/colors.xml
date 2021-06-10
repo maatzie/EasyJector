@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#124ca4</color>
-    <color name="colorPrimaryDark">#242444</color>
-    <color name="colorAccent">#189de4</color>
-    <color name="colorListBackground">#bcd9ea</color>
-    <color name="colorInputBackground">#bcd9ea</color>
-    <color name="colorHeaderBackground">#026aa7</color>
+    <color name="colorPrimary">#4B6BA4</color>
+    <color name="colorPrimaryDark">#341F58</color>
+    <color name="colorAccent">#4E979D</color>
+    <color name="colorListBackground">#447CCAA5</color>
+    <color name="colorInputBackground">#bFddf1a3</color>
+    <color name="colorHeaderBackground">#4E979D</color>
     <color name="colorButtonSelected">#74A182</color>
 </resources>

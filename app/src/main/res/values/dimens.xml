@@ -20,4 +20,5 @@
     <dimen name="weight_bottles_col2">1</dimen>
     <dimen name="weight_bottles_col3">1</dimen>
     <dimen name="weight_bottles_col4">1</dimen>
+    <dimen name="button_padding">7dp</dimen>
 </resources>
