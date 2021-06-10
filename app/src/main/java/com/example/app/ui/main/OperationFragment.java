@@ -23,6 +23,7 @@ import com.example.app.BottlesActivity;
 import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.adapters.PatientsRecyclerViewAdapter;
+import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.LinkedList;
@@ -72,6 +73,13 @@ public class OperationFragment extends Fragment {
             Button patientButton = (Button) root.findViewById(R.id.button_patient);
             String text = patientTableHandler.getSelectedPatient().toString() +  getString(R.string.button_text_selected);
             patientButton.setText(text);
+        }
+
+        BottleTableHandler bottleTableHandler = new BottleTableHandler(root.getContext());
+        if(bottleTableHandler.getSelectedBottle() != null){
+            Button bottleButton = (Button) root.findViewById(R.id.button_bottle);
+            String text = bottleTableHandler.getSelectedBottle().toString() +  getString(R.string.button_text_selected);
+            bottleButton.setText(text);
         }
 
         return root;
