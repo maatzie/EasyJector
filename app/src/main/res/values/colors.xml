@@ -7,4 +7,5 @@
     <color name="colorInputBackground">#bFddf1a3</color>
     <color name="colorHeaderBackground">#4E979D</color>
     <color name="colorButtonSelected">#74A182</color>
+    <color name="colorDivider">#F1F1F1</color>
 </resources>

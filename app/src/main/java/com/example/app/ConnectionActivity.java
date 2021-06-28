@@ -28,7 +28,7 @@ import java.util.List;
 public class ConnectionActivity extends AppCompatActivity {
 
     private RecyclerView networksRecyclerView;
-    private List<ScanResult> networks = new LinkedList<>();
+    private static List<ScanResult> networks = new LinkedList<>();
     WifiManager wifiManager;
 
     @Override
@@ -43,6 +43,8 @@ public class ConnectionActivity extends AppCompatActivity {
 
         wifiManager = (WifiManager)
                 getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        initRecyclerView();
 
         BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
             @Override
@@ -89,7 +91,7 @@ public class ConnectionActivity extends AppCompatActivity {
         NetworksRecyclerViewAdapter adapter = new NetworksRecyclerViewAdapter(networks, getSupportFragmentManager(), this);
         networksRecyclerView.setAdapter(adapter);
         networksRecyclerView.setNestedScrollingEnabled(false);
-        //bottlesRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
+        networksRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
     }
 
