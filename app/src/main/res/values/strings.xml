@@ -11,6 +11,7 @@
     <string name="button_selected">Selected</string>
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
+    <string name="button_connect">Connect</string>
     <string name="textView_addUsers_info">Add/Edit Users</string>
     <string name="textView_addBottles_info">Add/Edit Bottles</string>
     <string name="input_name">First Name</string>
