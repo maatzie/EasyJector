@@ -19,6 +19,7 @@ import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
+import com.example.app.util.ConnectionHandler;
 
 
 public class OperationFragment extends Fragment {
@@ -60,6 +61,8 @@ public class OperationFragment extends Fragment {
         setButtonOnClickListener((Button) root.findViewById(R.id.button_bottle), new BottlesActivity());
         setButtonOnClickListener((Button) root.findViewById(R.id.button_connection), new ConnectionActivity());
 
+        setStartButtonOnClickListener((Button) root.findViewById(R.id.button_start));
+
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
             Button patientButton = (Button) root.findViewById(R.id.button_patient);
@@ -82,6 +85,16 @@ public class OperationFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),activity.getClass());
                 view.getContext().startActivity(intent);
+            }
+        });
+    }
+
+    private void setStartButtonOnClickListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConnectionHandler handler = new ConnectionHandler();
+                handler.startInjection();
             }
         });
     }
