@@ -1,8 +1,6 @@
 package com.example.app.adapters;
 
 
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,22 +9,15 @@ import android.net.wifi.ScanResult;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.example.app.ConnectionActivity;
-import com.example.app.MainActivity;
-import com.example.app.PatientsActivity;
+import com.example.app.NetworksActivity;
+import com.example.app.NetworkActivity;
 import com.example.app.R;
-import com.example.app.database.pojo.Patient;
-import com.example.app.database.sqlite.PatientTableHandler;
+import com.example.app.util.WifiHandler;
 
 import java.util.List;
-
-import static com.example.app.database.sqlite.PatientTableHandler.selectedPatient;
 
 /**
  * Class is user for displaying a list of resources. If resource is clicked, activity is changed to
@@ -36,9 +27,9 @@ public class NetworksRecyclerViewAdapter extends RecyclerView.Adapter<NetworksRe
 
     private final List<ScanResult> mValues;
     private FragmentManager fragmentManager;
-    private ConnectionActivity activity;
+    private NetworksActivity activity;
 
-    public NetworksRecyclerViewAdapter(List<ScanResult> items, FragmentManager fragmentManager, ConnectionActivity activity) {
+    public NetworksRecyclerViewAdapter(List<ScanResult> items, FragmentManager fragmentManager, NetworksActivity activity) {
         mValues = items;
         this.fragmentManager = fragmentManager;
         this.activity = activity;
@@ -56,6 +47,18 @@ public class NetworksRecyclerViewAdapter extends RecyclerView.Adapter<NetworksRe
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mContentViewName.setText(holder.mItem.SSID);
+        holder.mView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                WifiHandler.selectedNetwork = mValues.get(position);
+
+                // open main view
+                Intent intent = new Intent(view.getContext(), NetworkActivity.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                view.getContext().startActivity(intent);
+
+            }
+        });
 
     }
 

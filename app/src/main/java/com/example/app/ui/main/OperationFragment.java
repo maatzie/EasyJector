@@ -1,34 +1,24 @@
 package com.example.app.ui.main;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.BottlesActivity;
 import com.example.app.ConnectionActivity;
+import com.example.app.NetworksActivity;
 import com.example.app.PatientsActivity;
 import com.example.app.R;
-import com.example.app.adapters.PatientsRecyclerViewAdapter;
 import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class OperationFragment extends Fragment {

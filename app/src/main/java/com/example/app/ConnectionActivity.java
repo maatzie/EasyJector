@@ -1,97 +1,117 @@
 package com.example.app;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app.adapters.BottlesRecyclerViewAdapter;
 import com.example.app.adapters.NetworksRecyclerViewAdapter;
-import com.example.app.database.pojo.Bottle;
+import com.example.app.util.ConnectionHandler;
+import com.example.app.util.Tcp;
+import com.example.app.util.WifiHandler;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ConnectionActivity extends AppCompatActivity {
 
-    private RecyclerView networksRecyclerView;
-    private static List<ScanResult> networks = new LinkedList<>();
-    WifiManager wifiManager;
+    ConnectionHandler connectionHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
+        connectionHandler = new ConnectionHandler();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         ActivityCompat.requestPermissions(ConnectionActivity.this,
                 new String[] {"android.permission.ACCESS_FINE_LOCATION",
-                        "android.permission.ACCESS_COARSE_LOCATION"},
+                        "android.permission.ACCESS_COARSE_LOCATION",
+                        "android.permission.CHANGE_WIFI_STATE",
+                        "android.permission.ACCESS_WIFI_STATE",
+                        "android.permission.INTERNET"},
                 PackageManager.PERMISSION_GRANTED);
 
-        wifiManager = (WifiManager)
-                getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context c, Intent intent) {
+//
+//                if (intent.getAction() == WifiManager.WIFI_STATE_CHANGED_ACTION) {
+//                    setNetworkName();
+//
+//                } else {
+//                    // scan failure handling
+//                    Log.i("ERROOR", "ERROR");
+//
+//                }
+//            }
+//        };
+//
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+//        getApplicationContext().registerReceiver(wifiScanReceiver, intentFilter);
 
-        initRecyclerView();
 
-        BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
+
+        setCheckButtonOnClickListener((Button)findViewById(R.id.button_checkConnection));
+        setNetworkName();
+    }
+
+    private void setNetworkName(){
+        //Log.i("STATUS", "CHANGED");
+        String ssid = connectionHandler.getConnectionName((WifiManager) getApplicationContext().getSystemService (Context.WIFI_SERVICE));
+
+        TextView textView = (TextView) findViewById(R.id.textView_connectionName);
+        textView.setText(ssid);
+        //textView.refreshDrawableState();
+    }
+    private void setCheckButtonOnClickListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onReceive(Context c, Intent intent) {
-                boolean success = intent.getBooleanExtra(
-                        WifiManager.EXTRA_RESULTS_UPDATED, false);
-                if (success) {
-                    scanSuccess();
-                } else {
-                    // scan failure handling
-                    scanFailure();
+            public void onClick(View view) {
+                JSONObject test = new JSONObject();
+                try {
+                    test.put("cmd", "hello");
+                    connectionHandler.send(test.toString());
+                    String receiveMessage = connectionHandler.receive();
+                    if(receiveMessage != null){
+                        setBatteryState();
+                        Toast.makeText(getApplicationContext(),"Connection has been established!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),
+                                "Ups! Troubles occurred while connecting to the device!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Ups! Troubles occurred while connecting to the device!", Toast.LENGTH_SHORT).show();
                 }
+
             }
-        };
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        getApplicationContext().registerReceiver(wifiScanReceiver, intentFilter);
-
-
-        boolean success = wifiManager.startScan();
-        if (!success) {
-            scanFailure();
-        }
-
-
-    }
-    private void scanSuccess() {
-        networks = wifiManager.getScanResults();
-        initRecyclerView();
-
+        });
     }
 
-    private void scanFailure() {
-        // handle failure: new scan did NOT succeed
-        // consider using old scan results: these are the OLD results!
-        networks = wifiManager.getScanResults();
-        initRecyclerView();
-    }
-
-    public void initRecyclerView(){
-        networksRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_networks);
-        networksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        NetworksRecyclerViewAdapter adapter = new NetworksRecyclerViewAdapter(networks, getSupportFragmentManager(), this);
-        networksRecyclerView.setAdapter(adapter);
-        networksRecyclerView.setNestedScrollingEnabled(false);
-        networksRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
+    private void setBatteryState(){
 
     }
 
