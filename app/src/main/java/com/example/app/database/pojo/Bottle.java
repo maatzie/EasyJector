@@ -6,6 +6,7 @@ public class Bottle {
     private String name;
     private int volume;
     private int quantity;
+    private int isDeleted;
 
     public Bottle(int ID, String bottleID, String name, int volume, int quantity){
         this.ID = ID;
@@ -13,6 +14,7 @@ public class Bottle {
         this.name = name;
         this.volume = volume;
         this.quantity = quantity;
+        this.isDeleted = 0;
     }
 
     public int getID() {
@@ -58,5 +60,13 @@ public class Bottle {
     @Override
     public String toString(){
         return bottleID + " " + name;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

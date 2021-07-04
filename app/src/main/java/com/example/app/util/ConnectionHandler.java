@@ -18,6 +18,7 @@ public class ConnectionHandler {
     public static Tcp tcp;
     public static Boolean isConnectionEstablished;
     private Date startTime;
+    private Date stopTime;
 
     public ConnectionHandler() {
         if (tcp == null)
@@ -33,12 +34,31 @@ public class ConnectionHandler {
     }
 
     public void send(String message) {
-        tcp = new Tcp();
+        //tcp = new Tcp();
         tcp.send(message);
     }
 
     public String receive() {
         return tcp.receive();
+    }
+
+    public boolean establishConnection(){
+        tcp = new Tcp();
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("cmd", "battery");
+            send(msg.toString());
+            String receiveMessage = receive();
+            if (receiveMessage == null)
+                return false;
+
+            isConnectionEstablished = true;
+            return true;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean startInjection() {
@@ -50,7 +70,29 @@ public class ConnectionHandler {
             if (receiveMessage == null)
                 return false;
             startTime = new Date();
-            Log.i("TIME", startTime.toString());
+            Log.i("START_TIME", startTime.toString());
+
+            // TODO insert into DB
+            return true;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean stopInjection(){
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("cmd", "off");
+            send(msg.toString());
+            String receiveMessage = receive();
+            if (receiveMessage == null)
+                return false;
+            stopTime = new Date();
+            Log.i("STOP_TIME", stopTime.toString());
+
+            // TODO update raw about injection
             return true;
 
         } catch (JSONException e) {

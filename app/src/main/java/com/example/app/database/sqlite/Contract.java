@@ -14,6 +14,7 @@ public final class Contract {
         public static final String COLUMN_NAME_LAST_NAME = "LastName";
         public static final String COLUMN_NAME_AGE = "Age";
         public static final String COLUMN_NAME_CITY = "City";
+        public static final String COLUMN_IS_DELETED = "IsDeleted";
     }
 
     /* Inner class that defines the bottle table contents */
@@ -23,6 +24,7 @@ public final class Contract {
         public static final String COLUMN_NAME_BOTTLE_NAME = "BottleName";
         public static final String COLUMN_NAME_VOLUME = "Volume";
         public static final String COLUMN_NAME_QUANTITY = "Quantity";
+        public static final String COLUMN_IS_DELETED = "IsDeleted";
     }
 
     static final String SQL_CREATE_ENTRIES =
@@ -31,13 +33,15 @@ public final class Contract {
                     FeedPatient.COLUMN_NAME_FIRST_NAME + " VARCHAR," +
                     FeedPatient.COLUMN_NAME_LAST_NAME + " VARCHAR," +
                     FeedPatient.COLUMN_NAME_AGE + " INTEGER," +
-                    FeedPatient.COLUMN_NAME_CITY + " VARCHAR) ; \n" +
+                    FeedPatient.COLUMN_NAME_CITY + " VARCHAR," +
+                    FeedPatient.COLUMN_IS_DELETED + " INTEGER DEFAULT 0) ; \n" +
 
                     "CREATE TABLE " + FeedBottle.TABLE_NAME + " (" +
                     FeedBottle._ID + " INTEGER PRIMARY KEY," +
                     FeedBottle.COLUMN_NAME_BOTTLE_ID + " VARCHAR," +
                     FeedBottle.COLUMN_NAME_BOTTLE_NAME + " VARCHAR," +
                     FeedBottle.COLUMN_NAME_VOLUME + " INTEGER," +
+                   // FeedBottle.COLUMN_IS_DELETED + " INTEGER DEFAULT 0," +
                     FeedBottle.COLUMN_NAME_QUANTITY + " INTEGER); ";
 
     static final String SQL_DELETE_ENTRIES =

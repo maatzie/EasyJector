@@ -36,11 +36,15 @@ public class BottleTableHandler {
                 Contract.FeedBottle.COLUMN_NAME_QUANTITY
         };
 
+        // Filter results WHERE "title" = 'My Title'
+        String selection = Contract.FeedBottle.COLUMN_IS_DELETED + " = ?";
+        String[] selectionArgs = { "0" };
+
         Cursor cursor = db.query(
                 Contract.FeedBottle.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
-                null,              // The columns for the WHERE clause
-                null,          // The values for the WHERE clause
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
                 null               // The sort order
@@ -87,13 +91,23 @@ public class BottleTableHandler {
     public int deleteBottle(int ID){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        // Define 'where' part of query.
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(Contract.FeedBottle.COLUMN_IS_DELETED, 1);
+
+        // Which row to update, based on the title
         String selection = Contract.FeedBottle._ID + " LIKE ?";
-        // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(ID)};
-        // Issue SQL statement.
-        int deletedRows = db.delete(Contract.FeedBottle.TABLE_NAME, selection, selectionArgs);
-        return deletedRows;
+        String[] selectionArgs = { Integer.toString(ID) };
+
+        int count = db.update(
+                Contract.FeedBottle.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+
+        return count;
     }
 
     public int addBottle(String bottleID, String name, int volume, int quantity){
@@ -106,6 +120,7 @@ public class BottleTableHandler {
         values.put(Contract.FeedBottle.COLUMN_NAME_BOTTLE_NAME, name);
         values.put(Contract.FeedBottle.COLUMN_NAME_VOLUME, volume);
         values.put(Contract.FeedBottle.COLUMN_NAME_QUANTITY, quantity);
+        values.put(Contract.FeedBottle.COLUMN_IS_DELETED, 0);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(Contract.FeedBottle.TABLE_NAME, null, values);
@@ -127,6 +142,7 @@ public class BottleTableHandler {
             values.put(Contract.FeedBottle.COLUMN_NAME_BOTTLE_NAME, "INKA");
             values.put(Contract.FeedBottle.COLUMN_NAME_VOLUME, 10);
             values.put(Contract.FeedBottle.COLUMN_NAME_QUANTITY, -14);
+            values.put(Contract.FeedBottle.COLUMN_IS_DELETED, 0);
 
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(Contract.FeedBottle.TABLE_NAME, null, values);

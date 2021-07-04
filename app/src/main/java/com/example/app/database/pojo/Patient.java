@@ -6,6 +6,7 @@ public class Patient {
     private String lastName;
     private int age;
     private String city;
+    private int isDeleted;
 
     public Patient(int ID, String firstName, String lastName, int age, String city){
         this.ID = ID;
@@ -13,6 +14,7 @@ public class Patient {
         this.lastName = lastName;
         this.age = age;
         this.city = city;
+        this.isDeleted = 0;
     }
 
     public String getFirstName() {
@@ -58,5 +60,13 @@ public class Patient {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

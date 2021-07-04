@@ -35,11 +35,15 @@ public class PatientTableHandler {
                 Contract.FeedPatient.COLUMN_NAME_CITY
         };
 
+        // Filter results WHERE "title" = 'My Title'
+        String selection = Contract.FeedPatient.COLUMN_IS_DELETED + " = ?";
+        String[] selectionArgs = { "0" };
+
         Cursor cursor = db.query(
                 Contract.FeedPatient.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
-                null,              // The columns for the WHERE clause
-                null,          // The values for the WHERE clause
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
                 null               // The sort order
@@ -86,13 +90,22 @@ public class PatientTableHandler {
     public int deletePatient(int ID){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        // Define 'where' part of query.
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(Contract.FeedPatient.COLUMN_IS_DELETED, 1);
+
+        // Which row to update, based on the title
         String selection = Contract.FeedPatient._ID + " LIKE ?";
-        // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(ID)};
-        // Issue SQL statement.
-        int deletedRows = db.delete(Contract.FeedPatient.TABLE_NAME, selection, selectionArgs);
-        return deletedRows;
+        String[] selectionArgs = { Integer.toString(ID) };
+
+        int count = db.update(
+                Contract.FeedPatient.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+
     }
 
     public int addPatient(String name, String surname, int age, String city){
@@ -105,6 +118,7 @@ public class PatientTableHandler {
         values.put(Contract.FeedPatient.COLUMN_NAME_LAST_NAME, surname);
         values.put(Contract.FeedPatient.COLUMN_NAME_AGE, age);
         values.put(Contract.FeedPatient.COLUMN_NAME_CITY, city);
+        values.put(Contract.FeedPatient.COLUMN_IS_DELETED, 0);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(Contract.FeedPatient.TABLE_NAME, null, values);
@@ -126,6 +140,7 @@ public class PatientTableHandler {
             values.put(Contract.FeedPatient.COLUMN_NAME_LAST_NAME, "surname");
             values.put(Contract.FeedPatient.COLUMN_NAME_AGE, 20);
             values.put(Contract.FeedPatient.COLUMN_NAME_CITY, "LA");
+            values.put(Contract.FeedPatient.COLUMN_IS_DELETED, 0);
 
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(Contract.FeedPatient.TABLE_NAME, null, values);

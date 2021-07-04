@@ -3,6 +3,7 @@
     <string name="tab_text_1">Operation</string>
     <string name="tab_text_2">History</string>
     <string name="button_text_connection">Connect</string>
+    <string name="button_text_connection_established">Connected</string>
     <string name="button_text_patient">Select Patient</string>
     <string name="button_text_selected">\ | Change</string>
     <string name="button_text_bottle">Select Bottle</string>

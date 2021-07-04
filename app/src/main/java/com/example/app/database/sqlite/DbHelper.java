@@ -9,11 +9,12 @@ import static com.example.app.database.sqlite.Contract.SQL_DELETE_ENTRIES;
 
 public class DbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "Database.db";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
@@ -23,6 +24,11 @@ public class DbHelper extends SQLiteOpenHelper {
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
+
+        // If you need to add a new column
+        if (newVersion > oldVersion) {
+            db.execSQL("ALTER TABLE Bottle ADD COLUMN IsDeleted INTEGER DEFAULT 0");
+        }
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);

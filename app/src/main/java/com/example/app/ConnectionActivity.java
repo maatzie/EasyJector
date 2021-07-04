@@ -10,6 +10,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,13 +44,13 @@ public class ConnectionActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        ActivityCompat.requestPermissions(ConnectionActivity.this,
-                new String[] {"android.permission.ACCESS_FINE_LOCATION",
-                        "android.permission.ACCESS_COARSE_LOCATION",
-                        "android.permission.CHANGE_WIFI_STATE",
-                        "android.permission.ACCESS_WIFI_STATE",
-                        "android.permission.INTERNET"},
-                PackageManager.PERMISSION_GRANTED);
+//        ActivityCompat.requestPermissions(ConnectionActivity.this,
+//                new String[] {"android.permission.ACCESS_FINE_LOCATION",
+//                        "android.permission.ACCESS_COARSE_LOCATION",
+//                        "android.permission.CHANGE_WIFI_STATE",
+//                        "android.permission.ACCESS_WIFI_STATE",
+//                        "android.permission.INTERNET"},
+//                PackageManager.PERMISSION_GRANTED);
 
 //        BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
 //            @Override
@@ -73,7 +74,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
 
         setCheckButtonOnClickListener((Button)findViewById(R.id.button_checkConnection));
-        setNetworkName();
+        //setNetworkName();
     }
 
     private void setNetworkName(){
@@ -88,12 +89,9 @@ public class ConnectionActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONObject test = new JSONObject();
                 try {
-                    test.put("cmd", "hello");
-                    connectionHandler.send(test.toString());
-                    String receiveMessage = connectionHandler.receive();
-                    if(receiveMessage != null){
+                    boolean isEstablished = connectionHandler.establishConnection();
+                    if(isEstablished){
                         setBatteryState();
                         Toast.makeText(getApplicationContext(),"Connection has been established!", Toast.LENGTH_SHORT).show();
                     }

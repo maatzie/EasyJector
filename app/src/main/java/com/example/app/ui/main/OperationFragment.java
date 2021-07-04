@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -62,6 +64,14 @@ public class OperationFragment extends Fragment {
         setButtonOnClickListener((Button) root.findViewById(R.id.button_connection), new ConnectionActivity());
 
         setStartButtonOnClickListener((Button) root.findViewById(R.id.button_start));
+        setStopButtonOnClickListener((Button) root.findViewById(R.id.button_stop));
+
+        ConnectionHandler connectionHandler = new ConnectionHandler();
+        if(ConnectionHandler.isConnectionEstablished){
+            Button patientButton = (Button) root.findViewById(R.id.button_connection);
+            String text = getString(R.string.button_text_connection_established);
+            patientButton.setText(text);
+        }
 
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
@@ -75,6 +85,15 @@ public class OperationFragment extends Fragment {
             Button bottleButton = (Button) root.findViewById(R.id.button_bottle);
             String text = bottleTableHandler.getSelectedBottle().toString() +  getString(R.string.button_text_selected);
             bottleButton.setText(text);
+        }
+
+        if(bottleTableHandler.getSelectedBottle() != null && patientTableHandler.getSelectedPatient() != null
+        && ConnectionHandler.isConnectionEstablished){
+            TextView alertText = (TextView) root.findViewById(R.id.text_alert);
+            alertText.setVisibility(View.INVISIBLE);
+
+            LinearLayout layout = (LinearLayout) root.findViewById(R.id.layout_Injection);
+            layout.setVisibility(View.VISIBLE);
         }
 
         return root;
@@ -95,6 +114,15 @@ public class OperationFragment extends Fragment {
             public void onClick(View view) {
                 ConnectionHandler handler = new ConnectionHandler();
                 handler.startInjection();
+            }
+        });
+    }
+    private void setStopButtonOnClickListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConnectionHandler handler = new ConnectionHandler();
+                handler.stopInjection();
             }
         });
     }

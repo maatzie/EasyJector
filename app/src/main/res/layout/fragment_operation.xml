@@ -77,10 +77,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <LinearLayout
+            android:id="@+id/layout_Injection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/button_padding">
+            android:padding="@dimen/button_padding"
+            android:visibility="invisible">
 
             <Button
                 android:id="@+id/button_start"
