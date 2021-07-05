@@ -3,6 +3,7 @@ package com.example.app.ui.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,26 @@ import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
 import com.example.app.util.ConnectionHandler;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class OperationFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+    private TextView mCounterTextView;
+
+    private Timer mTimer;
+    private MyTimerTask mMyTimerTask;
+    private Date startTime;
 
 
     public static OperationFragment newInstance(int index) {
@@ -96,6 +111,8 @@ public class OperationFragment extends Fragment {
             layout.setVisibility(View.VISIBLE);
         }
 
+        mCounterTextView = (TextView) root.findViewById(R.id.textView_timer);
+
         return root;
     }
     private void setButtonOnClickListener(Button button, final Activity activity) {
@@ -114,6 +131,7 @@ public class OperationFragment extends Fragment {
             public void onClick(View view) {
                 ConnectionHandler handler = new ConnectionHandler();
                 handler.startInjection();
+                startTimer();
             }
         });
     }
@@ -123,8 +141,61 @@ public class OperationFragment extends Fragment {
             public void onClick(View view) {
                 ConnectionHandler handler = new ConnectionHandler();
                 handler.stopInjection();
+                stopTimer();
             }
         });
     }
 
+    private void startTimer(){
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+
+        // re-schedule timer here
+        // otherwise, IllegalStateException of
+        // "TimerTask is scheduled already"
+        // will be thrown
+        Calendar calendar = Calendar.getInstance();
+        startTime = calendar.getTime();
+
+        mTimer = new Timer();
+        mMyTimerTask = new MyTimerTask();
+
+        mTimer.schedule(mMyTimerTask, 1000, 1000);
+    }
+
+    private void stopTimer(){
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
+    }
+
+    class MyTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+                    "HH:mm:ss", Locale.getDefault());
+
+            long diff = calendar.getTime().getTime() - startTime.getTime();
+
+
+            long diffSeconds = diff / 1000 % 60;
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+
+            calendar.set(0, 0, 0, (int)diffHours, (int)diffMinutes, (int)diffSeconds);
+            final String strDate = simpleDateFormat.format(calendar.getTime());
+
+            getActivity().runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    mCounterTextView.setText(strDate);
+                }
+            });
+        }
+    }
 }

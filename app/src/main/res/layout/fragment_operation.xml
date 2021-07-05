@@ -80,37 +80,60 @@
             android:id="@+id/layout_Injection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="@dimen/button_padding"
             android:visibility="invisible">
 
-            <Button
-                android:id="@+id/button_start"
-
+            <TextView
+                android:id="@+id/textView_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/operationButtons_horizontal_margin"
                 android:layout_marginTop="@dimen/operationButtons_vertical_margin"
                 android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
                 android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
                 android:layout_weight="1"
+                android:text="00:00:00"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                android:background="#C5E1A5"
-                android:text="Start"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/button_stop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/operationButtons_horizontal_margin"
-                android:layout_marginTop="@dimen/operationButtons_vertical_margin"
-                android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
-                android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#FFAB91"
-                android:text="Stop"
-                android:textColor="#FFFFFF" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_start"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/operationButtons_horizontal_margin"
+                    android:layout_marginTop="@dimen/operationButtons_vertical_margin"
+                    android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
+                    android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
+                    android:layout_weight="1"
+
+                    android:background="#C5E1A5"
+                    android:text="Start"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/button_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/operationButtons_horizontal_margin"
+                    android:layout_marginTop="@dimen/operationButtons_vertical_margin"
+                    android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
+                    android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
+                    android:layout_weight="1"
+                    android:background="#FFAB91"
+                    android:text="Stop"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
