@@ -19,6 +19,9 @@ import java.util.Date;
 public class ConnectionHandler {
     public static Tcp tcp;
     public static Boolean isConnectionEstablished;
+    //TODO change
+    public static String deviceName = "test";
+    public static long currentID;
     private Date startTime;
     private Date stopTime;
 
@@ -92,7 +95,7 @@ public class ConnectionHandler {
                 return false;
             stopTime = new Date();
             Log.i("STOP_TIME", stopTime.toString());
-            
+
             return true;
 
         } catch (JSONException e) {

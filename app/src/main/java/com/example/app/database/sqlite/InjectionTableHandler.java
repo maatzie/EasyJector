@@ -83,7 +83,7 @@ public class InjectionTableHandler {
     }
 
 
-    public int addInjection(int patientID, int bottleID, String deviceName){
+    public long addInjection(int patientID, int bottleID, String deviceName){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         // Create a new map of values, where column names are the keys
@@ -96,11 +96,10 @@ public class InjectionTableHandler {
         //values.put(Contract.FeedInjection.COLUMN_NAME_STOP_TIME, null);
 
         // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(Contract.FeedPatient.TABLE_NAME, null, values);
+        long newRowId = db.insert(Contract.FeedInjection.TABLE_NAME, null, values);
 
-        if(newRowId > -1)
-            return 1;
-        return 0;
+
+        return newRowId;
     }
 
 }
