@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.app.BottlesActivity;
 import com.example.app.ConnectionActivity;
-import com.example.app.NetworksActivity;
+
 import com.example.app.PatientsActivity;
 import com.example.app.R;
 import com.example.app.database.sqlite.BottleTableHandler;
