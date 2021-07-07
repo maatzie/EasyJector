@@ -153,6 +153,7 @@ public class OperationFragment extends Fragment {
                 if(handler.stopInjection()){
                     stopTimer();
                     injectionTableHandler.updateStopTime((int)ConnectionHandler.currentID);
+                    ConnectionHandler.currentID = -1;
                 }
                 List<Injection> injections = injectionTableHandler.getInjections();
                 Log.i("INJ", injections.toString());

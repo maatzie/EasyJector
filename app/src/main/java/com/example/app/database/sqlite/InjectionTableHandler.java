@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.app.database.pojo.Injection;
 import com.example.app.database.pojo.Patient;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,8 +50,8 @@ public class InjectionTableHandler {
         while(cursor.moveToNext()) {
             Injection injection = new Injection(
                     cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedInjection._ID)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_BOTTLE_ID)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_PATIENT_ID)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_BOTTLE_ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_DEVICE_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_START_TIME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedInjection.COLUMN_NAME_STOP_TIME)));
@@ -67,7 +68,8 @@ public class InjectionTableHandler {
 
         // New value for one column
         ContentValues values = new ContentValues();
-        values.put(Contract.FeedInjection.COLUMN_NAME_STOP_TIME, "datetime('now','localtime')");
+        Date date = new Date();
+        values.put(Contract.FeedInjection.COLUMN_NAME_STOP_TIME, Injection.getSimpleDateFormat().format(date));
 
 
         // Which row to update, based on the title
@@ -89,10 +91,12 @@ public class InjectionTableHandler {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
+        Date date = new Date();
+
         values.put(Contract.FeedInjection.COLUMN_NAME_BOTTLE_ID, bottleID);
         values.put(Contract.FeedInjection.COLUMN_NAME_PATIENT_ID, patientID);
         values.put(Contract.FeedInjection.COLUMN_NAME_DEVICE_NAME, deviceName);
-        values.put(Contract.FeedInjection.COLUMN_NAME_START_TIME, "datetime('now','localtime')");
+        values.put(Contract.FeedInjection.COLUMN_NAME_START_TIME, Injection.getSimpleDateFormat().format(date));
         //values.put(Contract.FeedInjection.COLUMN_NAME_STOP_TIME, null);
 
         // Insert the new row, returning the primary key value of the new row

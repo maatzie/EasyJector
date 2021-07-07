@@ -12,6 +12,8 @@ public class Injection {
     private Date startTime;
     private Date stopTime;
 
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");
+
     public Injection(int ID, int patientID, int bottleID, String deviceName, String startTime, String stopTime){
         this.ID = ID;
         this.patientID = patientID;
@@ -20,10 +22,9 @@ public class Injection {
         this.startTime = null;
         this.stopTime = null;
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
         try {
-            this.startTime = format.parse(startTime);
-            this.stopTime = format.parse(stopTime);
+            this.startTime = simpleDateFormat.parse(startTime);
+            this.stopTime = simpleDateFormat.parse(stopTime);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -76,5 +77,21 @@ public class Injection {
 
     public void setStopTime(Date stopTime) {
         this.stopTime = stopTime;
+    }
+
+    public static SimpleDateFormat getSimpleDateFormat(){
+        return simpleDateFormat;
+    }
+
+    @Override
+    public String toString() {
+        return "Injection{" +
+                "ID=" + ID +
+                ", patientID=" + patientID +
+                ", bottleID=" + bottleID +
+                ", deviceName='" + deviceName + '\'' +
+                ", startTime=" + startTime +
+                ", stopTime=" + stopTime +
+                '}';
     }
 }
