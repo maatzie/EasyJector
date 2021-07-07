@@ -8,6 +8,8 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.app.database.sqlite.InjectionTableHandler;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,7 +74,6 @@ public class ConnectionHandler {
             startTime = new Date();
             Log.i("START_TIME", startTime.toString());
 
-            // TODO insert into DB
             return true;
 
         } catch (JSONException e) {
@@ -91,8 +92,7 @@ public class ConnectionHandler {
                 return false;
             stopTime = new Date();
             Log.i("STOP_TIME", stopTime.toString());
-
-            // TODO update raw about injection
+            
             return true;
 
         } catch (JSONException e) {
