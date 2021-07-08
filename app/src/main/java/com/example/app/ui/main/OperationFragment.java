@@ -90,6 +90,8 @@ public class OperationFragment extends Fragment {
         setStartButtonOnClickListener((Button) root.findViewById(R.id.button_start));
         setStopButtonOnClickListener((Button) root.findViewById(R.id.button_stop));
 
+
+        // connectionHandler needs to be initialized
         ConnectionHandler connectionHandler = new ConnectionHandler();
         if(ConnectionHandler.isConnectionEstablished){
             Button patientButton = (Button) root.findViewById(R.id.button_connection);

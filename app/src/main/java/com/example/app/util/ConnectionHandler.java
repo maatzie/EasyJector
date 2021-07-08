@@ -1,6 +1,7 @@
 package com.example.app.util;
 
 
+
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import org.json.JSONException;
@@ -10,35 +11,28 @@ import org.json.JSONObject;
 public class ConnectionHandler {
     public static Tcp tcp;
     public static Boolean isConnectionEstablished;
-    //TODO change
-    public static String deviceName = "test";
+    
+    public static String deviceName;
     public static long currentID;
 
 
     public ConnectionHandler() {
-        if (tcp == null)
-            tcp = new Tcp();
         if (isConnectionEstablished == null)
             isConnectionEstablished = false;
     }
 
-    public String getConnectionName(WifiManager wifiManager) {
-        WifiInfo info = wifiManager.getConnectionInfo();
-        String ssid = info.getSSID();
-        return ssid;
-    }
 
-    public void send(String message) {
-        //tcp = new Tcp();
+    private void send(String message) {
         tcp.send(message);
     }
 
-    public String receive() {
+    private String receive() {
         return tcp.receive();
     }
 
     public boolean establishConnection(){
-        tcp = new Tcp();
+        if (!isConnectionEstablished)
+            tcp = new Tcp();
         JSONObject msg = new JSONObject();
         try {
             msg.put("cmd", "battery");
@@ -46,6 +40,7 @@ public class ConnectionHandler {
             String receiveMessage = receive();
             if (receiveMessage == null)
                 return false;
+
 
             isConnectionEstablished = true;
             return true;
@@ -56,7 +51,14 @@ public class ConnectionHandler {
         }
     }
 
+    public void setDeviceName(WifiManager wifiManager){
+        WifiInfo info = wifiManager.getConnectionInfo();
+        String ssid = info.getSSID();
+        ConnectionHandler.deviceName = ssid;
+    }
+
     public boolean startInjection() {
+        if(!ConnectionHandler.isConnectionEstablished) return false;
         JSONObject msg = new JSONObject();
         try {
             msg.put("cmd", "on");
@@ -71,6 +73,7 @@ public class ConnectionHandler {
     }
 
     public boolean stopInjection(){
+        if(!ConnectionHandler.isConnectionEstablished) return false;
         JSONObject msg = new JSONObject();
         try {
             msg.put("cmd", "off");
@@ -81,6 +84,25 @@ public class ConnectionHandler {
         } catch (JSONException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public String getBatteryState(){
+        if(!ConnectionHandler.isConnectionEstablished) return null;
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("cmd", "battery");
+            send(msg.toString());
+            String receiveMessage = receive();
+
+            JSONObject json = new JSONObject(receiveMessage);
+            receiveMessage = json.get("result").toString();
+
+            return receiveMessage;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

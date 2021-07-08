@@ -1,15 +1,20 @@
 package com.example.app;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.app.util.ConnectionHandler;
@@ -27,13 +32,13 @@ public class ConnectionActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-//        ActivityCompat.requestPermissions(ConnectionActivity.this,
-//                new String[] {"android.permission.ACCESS_FINE_LOCATION",
-//                        "android.permission.ACCESS_COARSE_LOCATION",
-//                        "android.permission.CHANGE_WIFI_STATE",
-//                        "android.permission.ACCESS_WIFI_STATE",
-//                        "android.permission.INTERNET"},
-//                PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(ConnectionActivity.this,
+                new String[] {"android.permission.ACCESS_FINE_LOCATION",
+                        "android.permission.ACCESS_COARSE_LOCATION",
+                        "android.permission.CHANGE_WIFI_STATE",
+                        "android.permission.ACCESS_WIFI_STATE",
+                        "android.permission.INTERNET"},
+                PackageManager.PERMISSION_GRANTED);
 
 //        BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
 //            @Override
@@ -57,15 +62,13 @@ public class ConnectionActivity extends AppCompatActivity {
 
 
         setCheckButtonOnClickListener((Button)findViewById(R.id.button_checkConnection));
-        //setNetworkName();
+        setNetworkName();
     }
 
     private void setNetworkName(){
         //Log.i("STATUS", "CHANGED");
-        String ssid = connectionHandler.getConnectionName((WifiManager) getApplicationContext().getSystemService (Context.WIFI_SERVICE));
-
         TextView textView = (TextView) findViewById(R.id.textView_connectionName);
-        textView.setText(ssid);
+        textView.setText(ConnectionHandler.deviceName);
         //textView.refreshDrawableState();
     }
     private void setCheckButtonOnClickListener(Button button) {
@@ -75,7 +78,9 @@ public class ConnectionActivity extends AppCompatActivity {
                 try {
                     boolean isEstablished = connectionHandler.establishConnection();
                     if(isEstablished){
+                        connectionHandler.setDeviceName((WifiManager) getApplicationContext().getSystemService (Context.WIFI_SERVICE));
                         setBatteryState();
+                        setNetworkName();
                         Toast.makeText(getApplicationContext(),"Connection has been established!", Toast.LENGTH_SHORT).show();
                     }
                     else{
@@ -93,7 +98,14 @@ public class ConnectionActivity extends AppCompatActivity {
     }
 
     private void setBatteryState(){
+        String batteryLevel = connectionHandler.getBatteryState();
+        if(batteryLevel != null){
+            LinearLayout layout = (LinearLayout) findViewById(R.id.layout_batteryState);
+            layout.setVisibility(View.VISIBLE);
 
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar_battery);
+            progressBar.setProgress(Integer.parseInt(batteryLevel));
+        }
     }
 
 }
