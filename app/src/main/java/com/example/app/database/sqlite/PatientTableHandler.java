@@ -64,6 +64,46 @@ public class PatientTableHandler {
         return patients;
     }
 
+    public List<Patient> getAllPatients(){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                BaseColumns._ID,
+                Contract.FeedPatient.COLUMN_NAME_FIRST_NAME,
+                Contract.FeedPatient.COLUMN_NAME_LAST_NAME,
+                Contract.FeedPatient.COLUMN_NAME_AGE,
+                Contract.FeedPatient.COLUMN_NAME_CITY
+        };
+
+
+        Cursor cursor = db.query(
+                Contract.FeedPatient.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                null,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+
+        List<Patient> patients = new LinkedList<>();
+        while(cursor.moveToNext()) {
+            Patient patient = new Patient(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedPatient._ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedPatient.COLUMN_NAME_FIRST_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedPatient.COLUMN_NAME_LAST_NAME)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FeedPatient.COLUMN_NAME_AGE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Contract.FeedPatient.COLUMN_NAME_CITY)));
+            patients.add(patient);
+        }
+        cursor.close();
+
+        return patients;
+    }
+
     public int updatePatient(int ID, String name, String surname, int age, String city){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();

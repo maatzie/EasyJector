@@ -63,8 +63,8 @@ public class HistoryFragment extends Fragment {
         injectionTableHandler = new InjectionTableHandler(root.getContext());
         injectionsRecyclerView = (RecyclerView) root.findViewById(R.id.recyclerView_history);
         List<Injection> injections = injectionTableHandler.getInjections();
-        List<Patient> patients = new PatientTableHandler(root.getContext()).getPatients();
-        List<Bottle> bottles = new BottleTableHandler(root.getContext()).getBottles();
+        List<Patient> patients = new PatientTableHandler(root.getContext()).getAllPatients();
+        List<Bottle> bottles = new BottleTableHandler(root.getContext()).getAllBottles();
         initRecyclerView(injections, patients, bottles);
 
         return root;
