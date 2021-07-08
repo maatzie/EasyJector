@@ -23,8 +23,10 @@ public class Injection {
         this.stopTime = null;
 
         try {
-            this.startTime = simpleDateFormat.parse(startTime);
-            this.stopTime = simpleDateFormat.parse(stopTime);
+            if(startTime != null)
+                this.startTime = simpleDateFormat.parse(startTime);
+            if(stopTime != null)
+                this.stopTime = simpleDateFormat.parse(stopTime);
 
         } catch (ParseException e) {
             e.printStackTrace();

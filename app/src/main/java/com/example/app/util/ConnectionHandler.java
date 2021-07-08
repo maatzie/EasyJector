@@ -1,20 +1,11 @@
 package com.example.app.util;
 
-import android.content.Context;
-import android.icu.text.SimpleDateFormat;
+
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.app.database.sqlite.InjectionTableHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ConnectionHandler {
     public static Tcp tcp;
@@ -22,8 +13,7 @@ public class ConnectionHandler {
     //TODO change
     public static String deviceName = "test";
     public static long currentID;
-    private Date startTime;
-    private Date stopTime;
+
 
     public ConnectionHandler() {
         if (tcp == null)
@@ -72,12 +62,7 @@ public class ConnectionHandler {
             msg.put("cmd", "on");
             send(msg.toString());
             String receiveMessage = receive();
-            if (receiveMessage == null)
-                return false;
-            startTime = new Date();
-            Log.i("START_TIME", startTime.toString());
-
-            return true;
+            return receiveMessage != null;
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -91,12 +76,7 @@ public class ConnectionHandler {
             msg.put("cmd", "off");
             send(msg.toString());
             String receiveMessage = receive();
-            if (receiveMessage == null)
-                return false;
-            stopTime = new Date();
-            Log.i("STOP_TIME", stopTime.toString());
-
-            return true;
+            return receiveMessage != null;
 
         } catch (JSONException e) {
             e.printStackTrace();

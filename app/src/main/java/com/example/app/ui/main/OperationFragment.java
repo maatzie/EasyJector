@@ -48,6 +48,9 @@ public class OperationFragment extends Fragment {
     private MyTimerTask mMyTimerTask;
     private Date startTime;
 
+    Button patientButton;
+    Button bottleButton;
+
 
     public static OperationFragment newInstance(int index) {
         OperationFragment fragment = new OperationFragment();
@@ -81,6 +84,9 @@ public class OperationFragment extends Fragment {
         setButtonOnClickListener((Button) root.findViewById(R.id.button_bottle), new BottlesActivity());
         setButtonOnClickListener((Button) root.findViewById(R.id.button_connection), new ConnectionActivity());
 
+        patientButton = (Button) root.findViewById(R.id.button_patient);
+        bottleButton = (Button) root.findViewById(R.id.button_bottle);
+
         setStartButtonOnClickListener((Button) root.findViewById(R.id.button_start));
         setStopButtonOnClickListener((Button) root.findViewById(R.id.button_stop));
 
@@ -93,14 +99,12 @@ public class OperationFragment extends Fragment {
 
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
-            Button patientButton = (Button) root.findViewById(R.id.button_patient);
             String text = patientTableHandler.getSelectedPatient().toString() +  getString(R.string.button_text_selected);
             patientButton.setText(text);
         }
 
         BottleTableHandler bottleTableHandler = new BottleTableHandler(root.getContext());
         if(bottleTableHandler.getSelectedBottle() != null){
-            Button bottleButton = (Button) root.findViewById(R.id.button_bottle);
             String text = bottleTableHandler.getSelectedBottle().toString() +  getString(R.string.button_text_selected);
             bottleButton.setText(text);
         }
@@ -136,10 +140,13 @@ public class OperationFragment extends Fragment {
                 InjectionTableHandler injectionTableHandler = new InjectionTableHandler(getContext());
                 if(handler.startInjection()){
                     startTimer();
-                    long currectID = injectionTableHandler.addInjection(PatientTableHandler.selectedPatient.getID(),
+                    long currentID = injectionTableHandler.addInjection(PatientTableHandler.selectedPatient.getID(),
                             BottleTableHandler.selectedBottle.getID(),
                             ConnectionHandler.deviceName);
-                    ConnectionHandler.currentID = currectID;
+                    ConnectionHandler.currentID = currentID;
+
+                    patientButton.setEnabled(false);
+                    bottleButton.setEnabled(false);
                 }
             }
         });
@@ -154,6 +161,9 @@ public class OperationFragment extends Fragment {
                     stopTimer();
                     injectionTableHandler.updateStopTime((int)ConnectionHandler.currentID);
                     ConnectionHandler.currentID = -1;
+
+                    patientButton.setEnabled(true);
+                    bottleButton.setEnabled(true);
                 }
                 List<Injection> injections = injectionTableHandler.getInjections();
                 Log.i("INJ", injections.toString());

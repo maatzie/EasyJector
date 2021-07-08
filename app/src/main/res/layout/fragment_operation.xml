@@ -43,13 +43,15 @@
             android:layout_marginTop="@dimen/operationButtons_vertical_margin"
             android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
             android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
+            android:background="@drawable/button_background"
             android:drawableLeft="@drawable/ic_add_user"
             android:drawablePadding="10px"
             android:gravity="left|center_vertical"
-            android:text="@string/button_text_patient"
-            android:background="@drawable/button_background"
             android:padding="@dimen/button_padding"
-            android:textAllCaps="false" />
+            android:text="@string/button_text_patient"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#C3C3C3" />
 
         <Button
             android:id="@+id/button_bottle"
@@ -60,13 +62,15 @@
             android:layout_marginTop="@dimen/operationButtons_vertical_margin"
             android:layout_marginRight="@dimen/operationButtons_horizontal_margin"
             android:layout_marginBottom="@dimen/operationButtons_vertical_margin"
+            android:background="@drawable/button_background"
             android:drawableLeft="@drawable/ic_bottle"
             android:drawablePadding="10px"
             android:gravity="left|center_vertical"
-            android:text="@string/button_text_bottle"
-            android:background="@drawable/button_background"
             android:padding="@dimen/button_padding"
-            android:textAllCaps="false" />
+            android:text="@string/button_text_bottle"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#C3C3C3" />
 
         <TextView
             android:id="@+id/text_alert"
