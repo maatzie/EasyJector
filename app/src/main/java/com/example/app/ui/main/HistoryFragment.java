@@ -9,8 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.R;
+import com.example.app.adapters.HistoryRecyclerViewAdapter;
+import com.example.app.adapters.PatientsRecyclerViewAdapter;
+import com.example.app.database.pojo.Bottle;
+import com.example.app.database.pojo.Injection;
+import com.example.app.database.pojo.Patient;
+import com.example.app.database.sqlite.BottleTableHandler;
+import com.example.app.database.sqlite.InjectionTableHandler;
+import com.example.app.database.sqlite.PatientTableHandler;
+
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -20,6 +32,8 @@ public class HistoryFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+    private InjectionTableHandler injectionTableHandler;
+    private RecyclerView injectionsRecyclerView;
 
     public static HistoryFragment newInstance(int index) {
         HistoryFragment fragment = new HistoryFragment();
@@ -46,7 +60,24 @@ public class HistoryFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
 
+        injectionTableHandler = new InjectionTableHandler(root.getContext());
+        injectionsRecyclerView = (RecyclerView) root.findViewById(R.id.recyclerView_history);
+        List<Injection> injections = injectionTableHandler.getInjections();
+        List<Patient> patients = new PatientTableHandler(root.getContext()).getPatients();
+        List<Bottle> bottles = new BottleTableHandler(root.getContext()).getBottles();
+        initRecyclerView(injections, patients, bottles);
 
         return root;
     }
+
+    public void initRecyclerView(List<Injection> injections, List<Patient> patients, List<Bottle> bottles){
+        injectionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(injections, patients, bottles);
+        injectionsRecyclerView.setAdapter(adapter);
+        injectionsRecyclerView.setNestedScrollingEnabled(false);
+        //patientsRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
+
+    }
+
+
 }

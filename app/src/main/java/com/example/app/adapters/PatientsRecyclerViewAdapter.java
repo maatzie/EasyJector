@@ -26,10 +26,7 @@ import java.util.List;
 
 import static com.example.app.database.sqlite.PatientTableHandler.selectedPatient;
 
-/**
- * Class is user for displaying a list of resources. If resource is clicked, activity is changed to
- * ResourceInformationActivity ind resource information is shown.
- */
+
 public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRecyclerViewAdapter.ViewHolder> {
 
     private final List<Patient> mValues;

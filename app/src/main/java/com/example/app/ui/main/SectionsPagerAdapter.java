@@ -33,6 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             return OperationFragment.newInstance(position + 1);
         else
             return HistoryFragment.newInstance(position + 1);
+
     }
 
     @Nullable

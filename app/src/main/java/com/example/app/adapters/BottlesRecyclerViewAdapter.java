@@ -28,10 +28,7 @@ import java.util.List;
 import static com.example.app.database.sqlite.BottleTableHandler.selectedBottle;
 
 
-/**
- * Class is user for displaying a list of resources. If resource is clicked, activity is changed to
- * ResourceInformationActivity ind resource information is shown.
- */
+
 public class BottlesRecyclerViewAdapter extends RecyclerView.Adapter<BottlesRecyclerViewAdapter.ViewHolder> {
 
     private final List<Bottle> mValues;

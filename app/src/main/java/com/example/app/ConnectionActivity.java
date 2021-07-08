@@ -104,7 +104,7 @@ public class ConnectionActivity extends AppCompatActivity {
             layout.setVisibility(View.VISIBLE);
 
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar_battery);
-            progressBar.setProgress(Integer.parseInt(batteryLevel));
+            progressBar.setProgress((int)Double.parseDouble(batteryLevel));
         }
     }
 
