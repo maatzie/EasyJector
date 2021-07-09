@@ -37,7 +37,7 @@ public final class Contract {
         public static final String COLUMN_NAME_STOP_TIME = "StopTime";
     }
 
-    static final String[] SQL_CREATE_ENTRIES =
+    static final String[] SQL_CREATE_ENTITIES =
             { "CREATE TABLE " + FeedPatient.TABLE_NAME + " (" +
                     FeedPatient._ID + " INTEGER PRIMARY KEY," +
                     FeedPatient.COLUMN_NAME_FIRST_NAME + " VARCHAR," +

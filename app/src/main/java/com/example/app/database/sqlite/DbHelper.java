@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.app.database.sqlite.Contract.SQL_CREATE_ENTRIES;
+import static com.example.app.database.sqlite.Contract.SQL_CREATE_ENTITIES;
 
 import static com.example.app.database.sqlite.Contract.SQL_DELETE_ENTITIES;
 
@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
     public void onCreate(SQLiteDatabase db) {
-        for(String q: SQL_CREATE_ENTRIES) db.execSQL(q);
+        for(String q: SQL_CREATE_ENTITIES) db.execSQL(q);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
