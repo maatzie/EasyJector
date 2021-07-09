@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -51,6 +52,9 @@ public class OperationFragment extends Fragment {
     Button patientButton;
     Button bottleButton;
 
+    Button startButton;
+    Button stopButton;
+
 
     public static OperationFragment newInstance(int index) {
         OperationFragment fragment = new OperationFragment();
@@ -80,15 +84,19 @@ public class OperationFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_operation, container, false);
 
-        setButtonOnClickListener((Button) root.findViewById(R.id.button_patient), new PatientsActivity());
-        setButtonOnClickListener((Button) root.findViewById(R.id.button_bottle), new BottlesActivity());
-        setButtonOnClickListener((Button) root.findViewById(R.id.button_connection), new ConnectionActivity());
-
         patientButton = (Button) root.findViewById(R.id.button_patient);
         bottleButton = (Button) root.findViewById(R.id.button_bottle);
 
-        setStartButtonOnClickListener((Button) root.findViewById(R.id.button_start));
-        setStopButtonOnClickListener((Button) root.findViewById(R.id.button_stop));
+        startButton = (Button) root.findViewById(R.id.button_start);
+        stopButton = (Button) root.findViewById(R.id.button_stop);
+
+        setButtonOnClickListener(patientButton, new PatientsActivity());
+        setButtonOnClickListener(bottleButton, new BottlesActivity());
+        setButtonOnClickListener((Button) root.findViewById(R.id.button_connection), new ConnectionActivity());
+
+
+        setStartButtonOnClickListener(startButton);
+        setStopButtonOnClickListener(stopButton);
 
 
         // connectionHandler needs to be initialized
@@ -150,6 +158,9 @@ public class OperationFragment extends Fragment {
                     patientButton.setEnabled(false);
                     bottleButton.setEnabled(false);
                 }
+                else{
+                    Toast.makeText(getContext(),"Error occurred while starting injection!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -167,8 +178,10 @@ public class OperationFragment extends Fragment {
                     patientButton.setEnabled(true);
                     bottleButton.setEnabled(true);
                 }
-                List<Injection> injections = injectionTableHandler.getInjections();
-                Log.i("INJ", injections.toString());
+                else{
+                    Toast.makeText(getContext(),"Error occurred while stopping injection!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
