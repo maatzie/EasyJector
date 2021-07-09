@@ -61,8 +61,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
         if(holder.mItem.getStartTime() != null)
             holder.mContentViewStartTime.setText(holder.mItem.getStartTime().toString());
+        else holder.mContentViewStartTime.setText("");
         if(holder.mItem.getStopTime() != null)
             holder.mContentViewStopTime.setText(holder.mItem.getStopTime().toString());
+        else holder.mContentViewStopTime.setText("");
 
 
     }
