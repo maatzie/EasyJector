@@ -9,13 +9,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.app.adapters.BottlesRecyclerViewAdapter;
-import com.example.app.adapters.PatientsRecyclerViewAdapter;
 import com.example.app.database.pojo.Bottle;
-import com.example.app.database.pojo.Patient;
 import com.example.app.database.sqlite.BottleTableHandler;
-import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
 
@@ -32,9 +28,6 @@ public class BottlesActivity extends AppCompatActivity {
 
 
         bottleTableHandler = new BottleTableHandler(getBaseContext());
-        bottleTableHandler.getBottles();
-
-
         List<Bottle> bottles = bottleTableHandler.getBottles();
         initRecyclerView(bottles);
         initAddButtonClick();
@@ -44,10 +37,9 @@ public class BottlesActivity extends AppCompatActivity {
     public void initRecyclerView(List<Bottle> bottles){
         bottlesRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_bottles);
         bottlesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        BottlesRecyclerViewAdapter adapter = new BottlesRecyclerViewAdapter(bottles, getSupportFragmentManager(), this);
+        BottlesRecyclerViewAdapter adapter = new BottlesRecyclerViewAdapter(bottles, this);
         bottlesRecyclerView.setAdapter(adapter);
         bottlesRecyclerView.setNestedScrollingEnabled(false);
-        //bottlesRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
 
     }
 

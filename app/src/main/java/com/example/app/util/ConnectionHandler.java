@@ -11,9 +11,8 @@ import org.json.JSONObject;
 public class ConnectionHandler {
     public static Tcp tcp;
     public static Boolean isConnectionEstablished;
-
     public static String deviceName;
-    public static long currentID;
+    public static long currentID; // an ID of the current injection (Injection.ID field)
 
 
     public ConnectionHandler() {

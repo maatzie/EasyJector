@@ -31,14 +31,6 @@ public class PatientsActivity extends AppCompatActivity {
 
         patientTableHandler = new PatientTableHandler(getBaseContext());
 
-        //List<Patient> patients = patientTableHandler.getPatients();
-        //patientTableHandler.addTestData();
-        //patientTableHandler.updatePatient(6, "Veranika", "Yakouchyts", 22, "Brest");
-        //patientTableHandler.deletePatient(5);
-
-        EditText editText_City = (EditText) findViewById(R.id.editText_City);
-
-        //editText_City.setInputType(InputType.TYPE_NULL);
 
         Button cancelButton = (Button) findViewById(R.id.button_cancelEditingPatient);
         cancelButton.setVisibility(View.GONE);
@@ -52,10 +44,9 @@ public class PatientsActivity extends AppCompatActivity {
     public void initRecyclerView(List<Patient> patients){
         patientsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_patients);
         patientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PatientsRecyclerViewAdapter adapter = new PatientsRecyclerViewAdapter(patients, getSupportFragmentManager(), this);
+        PatientsRecyclerViewAdapter adapter = new PatientsRecyclerViewAdapter(patients, this);
         patientsRecyclerView.setAdapter(adapter);
         patientsRecyclerView.setNestedScrollingEnabled(false);
-        //patientsRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
 
     }
 
@@ -124,15 +115,6 @@ public class PatientsActivity extends AppCompatActivity {
                     editText_Surname.getText().clear();
                     editText_Age.getText().clear();
                     editText_City.getText().clear();
-
-                    //editText_City.clearFocus();
-
-                    // Check if no view has focus:
-//                    View currentFocusView = getCurrentFocus();
-//                    if (currentFocusView != null) {
-//                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-//                        imm.hideSoftInputFromWindow(currentFocusView.getWindowToken(), 0);
-//                    }
 
                 }
             }

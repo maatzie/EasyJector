@@ -24,9 +24,7 @@ import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class HistoryFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";

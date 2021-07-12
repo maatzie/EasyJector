@@ -8,7 +8,6 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.example.app.database.pojo.Bottle;
-import com.example.app.database.pojo.Patient;
 
 import java.util.LinkedList;
 import java.util.List;

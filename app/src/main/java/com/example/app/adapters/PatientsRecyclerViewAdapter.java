@@ -30,12 +30,10 @@ import static com.example.app.database.sqlite.PatientTableHandler.selectedPatien
 public class PatientsRecyclerViewAdapter extends RecyclerView.Adapter<PatientsRecyclerViewAdapter.ViewHolder> {
 
     private final List<Patient> mValues;
-    private FragmentManager fragmentManager;
     private PatientsActivity activity;
 
-    public PatientsRecyclerViewAdapter(List<Patient> items, FragmentManager fragmentManager, PatientsActivity activity) {
+    public PatientsRecyclerViewAdapter(List<Patient> items, PatientsActivity activity) {
         mValues = items;
-        this.fragmentManager = fragmentManager;
         this.activity = activity;
     }
 

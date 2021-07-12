@@ -14,25 +14,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.app.BottlesActivity;
 import com.example.app.ConnectionActivity;
 
 import com.example.app.PatientsActivity;
 import com.example.app.R;
-import com.example.app.database.pojo.Injection;
 import com.example.app.database.sqlite.BottleTableHandler;
 import com.example.app.database.sqlite.InjectionTableHandler;
 import com.example.app.database.sqlite.PatientTableHandler;
 import com.example.app.util.ConnectionHandler;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;

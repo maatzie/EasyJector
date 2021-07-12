@@ -21,7 +21,6 @@ import com.example.app.MainActivity;
 import com.example.app.R;
 import com.example.app.database.pojo.Bottle;
 import com.example.app.database.sqlite.BottleTableHandler;
-import com.example.app.database.sqlite.PatientTableHandler;
 
 import java.util.List;
 
@@ -32,12 +31,10 @@ import static com.example.app.database.sqlite.BottleTableHandler.selectedBottle;
 public class BottlesRecyclerViewAdapter extends RecyclerView.Adapter<BottlesRecyclerViewAdapter.ViewHolder> {
 
     private final List<Bottle> mValues;
-    private FragmentManager fragmentManager;
     private BottlesActivity activity;
 
-    public BottlesRecyclerViewAdapter(List<Bottle> items, FragmentManager fragmentManager, BottlesActivity activity) {
+    public BottlesRecyclerViewAdapter(List<Bottle> items, BottlesActivity activity) {
         mValues = items;
-        this.fragmentManager = fragmentManager;
         this.activity = activity;
     }
 
@@ -115,7 +112,6 @@ public class BottlesRecyclerViewAdapter extends RecyclerView.Adapter<BottlesRecy
 
                     // scroll to the bottom of views
                     NestedScrollView scrollView = (NestedScrollView) activity.findViewById(R.id.nestedScrollView_Bottles);
-                    //scrollView.smoothScrollTo(0, scrollView.getBottom());
                     scrollView.fullScroll(View.FOCUS_DOWN);
 
                     // set to edit mode
