@@ -90,11 +90,6 @@ public class OperationFragment extends Fragment {
 
         // connectionHandler needs to be initialized
         ConnectionHandler connectionHandler = new ConnectionHandler();
-        if(ConnectionHandler.isConnectionEstablished){
-            Button patientButton = (Button) root.findViewById(R.id.button_connection);
-            String text = getString(R.string.button_text_connection_established);
-            patientButton.setText(text);
-        }
 
         PatientTableHandler patientTableHandler = new PatientTableHandler(root.getContext());
         if(patientTableHandler.getSelectedPatient() != null){
